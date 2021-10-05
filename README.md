@@ -17,10 +17,10 @@
 
 ### Project Overview
 
-The project focuses on cryptocurrencies and providing our users with a tool which allows them to observe insights into the "top ten**" cryptocurrencies. 
+The project focuses on cryptocurrencies and providing our users with a tool which allows them to observe insights into the top seven* cryptocurrencies. 
 We would like our users to be able to use the visualisations presented to find out more about these selected cryptocurrencies and their recorded past. 
 
-
+*The top seven would be based on popularity from an API search. 
 
 
 ### Data Sources
@@ -40,10 +40,9 @@ We are going to explore the information obtainable from each to decide which is 
 
 We hope to visualise the following three points: 
 
-* Traded volume over time, where the data filter can be set by the user. 
-* Value against either GPB or USD over time. 
-We would like one of these two visualisations (maybe both) to use a [bar chart race](https://observablehq.com/@d3/bar-chart-race) plot.
-* A third visualisation which allows the user to select a single cryptocurrency and displays the relationship between the traded volume and its value against USD or GBP over time.
+* Top seven crypto plot - gives user overview of data (data range needs to be specified)
+* [Bar Chart Race](https://observablehq.com/@d3/bar-chart-race) to show all seven cryptos over the past two years. (Replay button / filter for data to race) 
+* [Candlestick plot](https://www.amcharts.com/demos/stock-chart-candlesticks) last 20 days for a cryptocurrency (shows alphabetically first crypto, dropdown to choose others).
 
 
 
@@ -52,18 +51,14 @@ We would like one of these two visualisations (maybe both) to use a [bar chart r
 
 **Flask Application (Python)**
 
-*
-*
-*
+* API call for top seven crypto.
+* Return JSON to be read by Java Script.
 
 **Java Script**
 
-*
-*
-*
+* Reads in data created by Flask Application
+* Data Visualisation
 
 **HTML**
 
-*
-*
-*
+* website Layout
