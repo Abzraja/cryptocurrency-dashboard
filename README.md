@@ -45,8 +45,6 @@ We hope to visualise the following three points:
 * [Candlestick plot](https://www.amcharts.com/demos/stock-chart-candlesticks) last 20 days for a cryptocurrency (shows alphabetically first crypto, dropdown to choose others).
 
 
-
-
 ### Task Breakdown
 
 **Flask Application (Python)**
