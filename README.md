@@ -18,7 +18,7 @@
 ### Project Overview
 
 The project focuses on cryptocurrencies and providing our users with a tool which allows them to observe insights into the "top ten**" cryptocurrencies. 
-We would like our users to be able to use the visualisations presented to find out more about how these selected cryptocurrencies as well as their recorded past. 
+We would like our users to be able to use the visualisations presented to find out more about these selected cryptocurrencies and their recorded past. 
 
 
 
