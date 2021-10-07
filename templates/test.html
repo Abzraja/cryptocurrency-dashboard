@@ -30,7 +30,7 @@
             api_path = `/data/${coin}`;
             console.log(`Function API called with coin ${coin}`);
             console.log(api_path);
-            data_area = d3.select("data_area");
+            data_area = d3.select("#data_area");
             d3.json(api_path).then(function(data) {
                 for (let [key, value] of Object.entries(data)) {
                     console.log(`${key}: ${value}`);
