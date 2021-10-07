@@ -7,10 +7,10 @@
     <ol>
         <li>Working Flask app to return data</li>
         <li>Successful pass of data to JS for processing</li>
+        <li>SQL database</li>
     </ol>
     <p>Not included in this proof of concept</p>
     <ol>
-        <li>SQL database</li>
         <li>Real data</li>
         <li>Visualisations</li>
     </ol>
@@ -29,6 +29,7 @@
         function api(coin) {
             api_path = `/data/${coin}`;
             data_area = d3.select("#data_area");
+            data_area.text("");
             d3.json(api_path).then(function(data) {
                 for (let [key, value] of Object.entries(data)) {
                     data_area.append("text").text(`${key}: ${value}`).append("br");
