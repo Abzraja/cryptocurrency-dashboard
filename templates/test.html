@@ -32,7 +32,10 @@
             data_area.text("");
             d3.json(api_path).then(function(data) {
                 for (let [key, value] of Object.entries(data)) {
-                    data_area.append("text").text(`${key}: ${value}`).append("br");
+                    for (let [keya, valuea] of Object.entries(value)) {
+                        data_area.append("text").text(`${keya}: ${valuea}. `);
+                    }
+                    data_area.append("br");
                 }
             });
         };

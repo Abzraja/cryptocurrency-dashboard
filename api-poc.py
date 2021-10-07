@@ -61,8 +61,7 @@ def data(coin):
     # Create fake dictionary to test
     coin_dict = {}
     for row in coins:
-        #coin_dict.append({"id": row.id, "coin":row.coin, "value":row.datapoint})
-        coin_dict[row.id] = row.datapoint
+        coin_dict[row.id] = {"coin": row.coin, "value": row.datapoint}
     print(coin_dict)
     # Return dictionary as a JSON file for JS processing
     return(jsonify(coin_dict))
