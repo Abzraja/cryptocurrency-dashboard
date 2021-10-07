@@ -28,19 +28,15 @@
     <script>
         function api(coin) {
             api_path = `/data/${coin}`;
-            console.log(`Function API called with coin ${coin}`);
-            console.log(api_path);
             data_area = d3.select("#data_area");
             d3.json(api_path).then(function(data) {
                 for (let [key, value] of Object.entries(data)) {
-                    console.log(`${key}: ${value}`);
                     data_area.append("text").text(`${key}: ${value}`).append("br");
                 }
             });
         };
-
-    var coin_choice = d3.select("#coin_dropdown").property("value");
-    d3.select("#coin_dropdown").on("change", api(coin_choice));
+    
+    api("abc");
     </script>
 </body>
 </html>
