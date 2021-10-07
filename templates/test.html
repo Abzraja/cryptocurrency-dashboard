@@ -1,0 +1,48 @@
+<html>
+    <head><title>Proof of concept</title></head>
+<body>
+    <h1>API proof of concept</h1>
+    <p>Selecting from the dropdown calls an API and returns the data</p>
+    <p>Aims of this file:</p>
+    <ol>
+        <li>Working Flask app to return data</li>
+        <li>Successful pass of data to JS for processing</li>
+    </ol>
+    <p>Not included in this proof of concept</p>
+    <ol>
+        <li>SQL database</li>
+        <li>Real data</li>
+        <li>Visualisations</li>
+    </ol>
+
+    <h1>Data</h1>
+    <select id="coin_dropdown">
+        <option value="abc">ABC</option>
+        <option value="def">DEF</option>
+        <option value="ghi">GHI</option>
+    </select>
+    <div><p id="data_area"></p></div>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <script>
+        function api(coin) {
+            api_path = `/data/${coin}`;
+            console.log(`Function API called with coin ${coin}`);
+            console.log(api_path);
+            data_area = d3.select("data_area");
+            d3.json(api_path).then(function(data) {
+                for (let [key, value] of Object.entries(data)) {
+                    console.log(`${key}: ${value}`);
+                    data_area.append("text").text(`${key}: ${value}`).append("br");
+                }
+            });
+        };
+    
+    api("abc")
+
+    var coin_choice = d3.select("#coin_dropdown").property("value");
+    d3.select("#selDataset").on("change", api(coin_choice));
+    </script>
+</body>
+</html>
