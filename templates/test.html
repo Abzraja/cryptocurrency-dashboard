@@ -38,11 +38,9 @@
                 }
             });
         };
-    
-    api("abc")
 
     var coin_choice = d3.select("#coin_dropdown").property("value");
-    d3.select("#selDataset").on("change", api(coin_choice));
+    d3.select("#coin_dropdown").on("change", api(coin_choice));
     </script>
 </body>
 </html>
