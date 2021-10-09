@@ -1,0 +1,70 @@
+<html>
+    <head><title>Proof of concept</title></head>
+<body>
+    <h1>API proof of concept</h1>
+    <p>Selecting from the dropdown calls an API and returns the data</p>
+    <p>Aims of this file:</p>
+    <ol>
+        <li>Working Flask app to return data</li>
+        <li>Successful pass of data to JS for processing</li>
+        <li>SQL database</li>
+        <li>Real data</li>
+    </ol>
+    <p>Not included in this proof of concept</p>
+    <ol>
+        <li>Visualisations</li>
+    </ol>
+
+    <h1>Data</h1>
+    <select id="coin_dropdown" onchange="api(this.value)">
+        <option value="bitcoin_gbp">Bitcoin</option>
+        <option value="etherium_gbp">Etherium</option>
+        <option value="ada_gbp">Ada</option>
+        <option value="ripple_gbp">Ripple</option>
+        <option value="solana_gbp">Solana</option>
+    </select>
+    <h1>Historical</h1><p id="data_area"></p>
+    <h1>Line chart</h1><p id="line_data"></p>
+    <h1>Sum chart</h1><p id="sum_data"></p>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <script>
+        function api(coin) {
+            api_path = `/historical/${coin}`;
+            data_area = d3.select("#data_area");
+            data_area.text("");
+            d3.json(api_path).then(function(data) {
+                for (let [key, value] of Object.entries(data)) {
+                    for (let [keya, valuea] of Object.entries(value)) {
+                        data_area.append("text").text(`${keya}: ${valuea}. `);
+                    }
+                    data_area.append("br");
+                }
+            });
+            api_path = '/linechart';
+            line_data = d3.select("#line_data");
+            line_data.text("");
+            d3.json(api_path).then(function(data) {
+                for (let [key, value] of Object.entries(data)) {
+                    for (let [keya, valuea] of Object.entries(value)) {
+                        line_data.append("text").text(`${keya}: ${valuea}. `);
+                    }
+                    line_data.append("br");
+                }
+              });
+            api_path = '/sumtrades';
+            sum_data = d3.select("#sum_data");
+            sum_data.text("");
+            d3.json(api_path).then(function(data) {
+                for (let [key, value] of Object.entries(data)) {
+                        sum_data.append("text").text(`${key}: ${value}. `);
+                    sum_data.append("br");
+                }
+              });
+        };
+    
+    api("bitcoin_gbp");
+    </script>
+</body>
+</html>
