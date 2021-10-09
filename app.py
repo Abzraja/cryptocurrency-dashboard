@@ -99,6 +99,12 @@ def data(coin):
     # Return dictionary as a JSON file for JS processing
     return(jsonify(coin_dict))
 
+
+# Historical chart page
+@app.route("/historical")
+def chart():
+    return render_template ("historical.html")
+
 # Start Flask app
 if __name__ == '__main__':
     app.run(debug=True)
