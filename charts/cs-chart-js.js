@@ -184,3 +184,39 @@ candleSeries.setData([
 	{ time: '2019-05-23', open: 188.45, high: 192.54, low: 186.27, close: 192.00 },
 	{ time: '2019-05-24', open: 192.54, high: 193.86, low: 190.41, close: 193.59 },
 ]);
+
+
+updated_data = { time: '2019-05-24', open: 265.25, high: 300.54, low: 220.41, close: 235.59 }
+
+
+ function incrementDate() {
+	day = updated_data["time"]["day"]
+	day = day + 1;
+	updated_data["time"]["day"] =+ day
+	console.log(updated_data)
+// date = Date.parse(updated_data["time"])
+// new_date = date + 86400000;
+
+// var dateObject = new Date(new_date)
+// var stringdate = dateObject.toISOString();
+
+// sliced_date = stringdate.slice(0,10)
+
+// updated_data["time"] = sliced_date
+ };
+
+
+
+ 
+
+// Trying to update data in Real time
+// function dataUpdate() {
+// 	candleSeries.update(updated_data);
+// }
+
+
+var intervalId = window.setInterval(function(){
+	/// call your function here
+	candleSeries.update(updated_data);
+	incrementDate();
+  }, 1000);
