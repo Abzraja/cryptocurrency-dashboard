@@ -40,7 +40,8 @@ def historical_api_call():
         "high" : [],
         "low" : [],
         "close" : [],
-        "volume" : []
+        "volume" : [],
+        "trade": []
         }
     )
 
@@ -54,6 +55,7 @@ def historical_api_call():
             low_col = time_interval[3]
             close_col = time_interval[4]
             vol_col = time_interval[5]
+            trade_col = time_interval[9]
 
             new_row = [{"crypto": crypto,
                     "date" : date_col,
@@ -61,7 +63,8 @@ def historical_api_call():
                     "high" : high_col,
                     "low" : low_col,
                     "close" : close_col,
-                    "volume" : vol_col
+                    "volume" : vol_col,
+                    "trade" : trade_col
                     }]
 
             candle_df = candle_df.append(new_row,ignore_index=True,sort=False)

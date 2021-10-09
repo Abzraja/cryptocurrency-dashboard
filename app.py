@@ -38,7 +38,44 @@ app = Flask(__name__)
 def home():
     return render_template ("test.html")
 
-# An API call, specific for each coin handle
+@app.route("/sumtrades")
+def sumtrades():
+    session = Session(bind=engine)
+    execute_string = "select crypto, sum(trade) from historical group by crypto"
+    coins = engine.execute(execute_string).fetchall()
+    session.close()
+    
+    coin_dict = {}
+    for row in coins:
+        print(row)
+        coin_dict[row[0]] = row[1]
+        print (coin_dict)
+    
+    # Return dictionary as a JSON file for JS processing
+    return(jsonify(coin_dict))    
+
+# API call to return volume and trades for all coins
+@app.route("/linechart")
+def line():
+    session = Session(bind=engine)
+    execute_string = "select * from historical"
+    coins = engine.execute(execute_string).fetchall()
+    session.close()
+    
+    coin_dict = {}
+    for row in coins:
+        coin_dict[row[0]] = ({
+            "crypto": row[1],
+            "date": row[2],
+            "volume": row[7],
+            "trade": row[8]
+            })
+    
+    # Return dictionary as a JSON file for JS processing
+    return(jsonify(coin_dict))
+
+
+# API call to return all data for one coin
 @app.route("/historical/<coin>")
 def data(coin):
     session = Session(bind=engine)
@@ -55,7 +92,8 @@ def data(coin):
             "high": row[4],
             "low": row[5],
             "close": row[6],
-            "volume": row[7]
+            "volume": row[7],
+            "number_trades": row[8]
             })
     
     # Return dictionary as a JSON file for JS processing
