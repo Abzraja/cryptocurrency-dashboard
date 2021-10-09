@@ -8,18 +8,20 @@
         <li>Working Flask app to return data</li>
         <li>Successful pass of data to JS for processing</li>
         <li>SQL database</li>
+        <li>Real data</li>
     </ol>
     <p>Not included in this proof of concept</p>
     <ol>
-        <li>Real data</li>
         <li>Visualisations</li>
     </ol>
 
     <h1>Data</h1>
     <select id="coin_dropdown" onchange="api(this.value)">
-        <option value="abc">ABC</option>
-        <option value="def">DEF</option>
-        <option value="ghi">GHI</option>
+        <option value="bitcoin_gbp">Bitcoin</option>
+        <option value="etherium_gbp">Etherium</option>
+        <option value="ada_gbp">Ada</option>
+        <option value="ripple_gbp">Ripple</option>
+        <option value="solana_gbp">Solana</option>
     </select>
     <div><p id="data_area"></p></div>
 
@@ -27,7 +29,7 @@
 
     <script>
         function api(coin) {
-            api_path = `/data/${coin}`;
+            api_path = `/historical/${coin}`;
             data_area = d3.select("#data_area");
             data_area.text("");
             d3.json(api_path).then(function(data) {
