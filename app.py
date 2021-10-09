@@ -28,11 +28,6 @@ engine = create_engine(db_path)
 historical_df = historical_api_call()
 historical_df.to_sql('historical', con=engine, if_exists='replace')
 
-# Reflect
-#Base = automap_base()
-#Base.prepare(engine, reflect=True)
-#historical = Base.classes.historical
-
 # Set app name as "app" and start Flask
 app = Flask(__name__)
 
@@ -49,12 +44,6 @@ def data(coin):
     session = Session(bind=engine)
     execute_string = "select * from historical where crypto='" + coin + "'"
     coins = engine.execute(execute_string).fetchall()
-
-    #coins = (session
-    #    .query(historical)
-    #    .filter(historical.crypto==coin)
-    #    .all()
-    #    )
     session.close()
     
     coin_dict = {}
@@ -65,7 +54,8 @@ def data(coin):
             "open": row[3],
             "high": row[4],
             "low": row[5],
-            "close": row[6]
+            "close": row[6],
+            "volume": row[7]
             })
     
     # Return dictionary as a JSON file for JS processing
