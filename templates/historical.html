@@ -4,7 +4,12 @@
         <title>Historical Chart</title>
     </head>
 <body>
-    <h1>test chart</h1>
+    <h1>Test Chart</h1>
+    
+    <div>
+        <h4>Select coin:</h4>
+        <select id="selDataset" onchange="optionChanged(this.value)"></select>
+    </div>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <script src="../static/js/hist-cs-chart.js"></script>
