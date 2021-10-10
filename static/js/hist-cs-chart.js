@@ -18,8 +18,8 @@ var chart = LightweightCharts.createChart(document.body, {
     width: 1000,
   height: 500,
     layout: {
-        backgroundColor: '#000000',
-        textColor: 'rgba(255, 255, 255, 0.9)',
+        // backgroundColor: '#000000',
+        // textColor: 'rgba(255, 255, 255, 0.9)',
     },
     grid: {
         vertLines: {
@@ -41,14 +41,15 @@ var chart = LightweightCharts.createChart(document.body, {
 });
 
 var candleSeries = chart.addCandlestickSeries({
-  upColor: 'rgba(255, 144, 0, 1)',
-  downColor: '#000',
-  borderDownColor: 'rgba(255, 144, 0, 1)',
-  borderUpColor: 'rgba(255, 144, 0, 1)',
-  wickDownColor: 'rgba(255, 144, 0, 1)',
-  wickUpColor: 'rgba(255, 144, 0, 1)',
+//   upColor: 'rgba(255, 144, 0, 1)',
+//   downColor: '#000',
+//   borderDownColor: 'rgba(255, 144, 0, 1)',
+//   borderUpColor: 'rgba(255, 144, 0, 1)',
+//   wickDownColor: 'rgba(255, 144, 0, 1)',
+//   wickUpColor: 'rgba(255, 144, 0, 1)',
 });
 
+// run function optionChanged and pass it variable coin
 optionChanged(coin);
 
 // function that is activated on page load and on selection box change
