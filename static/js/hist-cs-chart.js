@@ -1,9 +1,9 @@
 // coins list to populate selection box
-let coins = ["bitcoin_gbp","etherium_gbp","ripple_gbp","ada_gbp","solana_gbp"]
+let coins = ["bitcoin","etherium","ripple","ada","solana"]
 
-//populate selection box
+//populate selection box with coins list
 for (i in coins) {
- d3.select("select").append("option").attr("value", coins[i]).text(coins[i]);
+ d3.select("#selDataset").append("option").attr("value", `${coins[i]}_gbp`).text(coins[i]);
 };
 
 // Use D3 to select dropdown menu
@@ -11,6 +11,20 @@ var dropdownMenu = d3.select("#selDataset");
 
 // Assign the value of the dropdown menu option to a variable
 var coin = dropdownMenu.property("value");
+
+// List of time ranges for selection box
+let time_deltas = [{"Last 365 Days":31622400}, {"Last 30 Days":2678400}, {"Last 7 Days":691200}]
+
+//populate selection box with time ranges list
+for (i in time_deltas) {
+    d3.select("#selTime").append("option").attr("value", Object.values(time_deltas[i])).text(Object.keys(time_deltas[i]));
+   };
+
+// Use D3 to select time dropdown menu
+var dropdownMenu2 = d3.select("#selTime"); 
+
+// Assign the value of the dropdown menu option to a variable
+var time_delta = dropdownMenu2.property("value");
 
 
 // create chart
@@ -49,15 +63,14 @@ var candleSeries = chart.addCandlestickSeries({
 //   wickUpColor: 'rgba(255, 144, 0, 1)',
 });
 
+
 // run function optionChanged and pass it variable coin
 optionChanged(coin);
+
 
 // function that is activated on page load and on selection box change
 function optionChanged(coin) {
      
-    
-
-
 
     // pull from api
     d3.json(`/historical/${coin}`).then(function(data) {
@@ -68,20 +81,34 @@ function optionChanged(coin) {
         delete data[i]["date"]
         }
 
-    
-        
+
         // set data for chart
-        candleSeries.setData(Object.values(data)
+        candleSeries.setData(
             
+            // Our data object is a dictionary of dictionaries so this returns the values for each key.
+            Object.values(data)
+
+            // this is just an example of the format of data expected
             // { time: '2018-10-19', open: 180.34, high: 180.99, low: 178.57, close: 179.85 },
-        
         
         );
 
+        changeTime(time_delta);
         
-
-
-
     });
 
+
 };
+
+
+function changeTime(time_delta) {
+    // get most recent date in data object and convert to unix timestamp in seconds
+    var last_date = new Date().getTime() / 1000;
+
+    // set the time scale on chart
+    chart.timeScale().setVisibleRange({
+    from: last_date - time_delta,
+    to: last_date,
+    });
+    }
+
