@@ -67,9 +67,8 @@ var candleSeries = chart.addCandlestickSeries({
 // run function optionChanged and pass it variable coin
 optionChanged(coin);
 
-
 // function that is activated on page load and on selection box change
-function optionChanged(coin) {
+function optionChanged(coin, time_delta) {
      
 
     // pull from api
@@ -93,6 +92,7 @@ function optionChanged(coin) {
         
         );
 
+        time_delta = dropdownMenu2.property("value");
         changeTime(time_delta);
         
     });
@@ -104,7 +104,6 @@ function optionChanged(coin) {
 function changeTime(time_delta) {
     // get most recent date in data object and convert to unix timestamp in seconds
     var last_date = new Date().getTime() / 1000;
-
     // set the time scale on chart
     chart.timeScale().setVisibleRange({
     from: last_date - time_delta,
