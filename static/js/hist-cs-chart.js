@@ -95,8 +95,8 @@ function optionChanged(coin, time_delta) {
 
         //get time_delta value based on value selected in selection box.
         time_delta = dropdownMenu2.property("value");
-        console.log(time_delta)
         
+        // run changeTime function
         changeTime(time_delta);
         
         
