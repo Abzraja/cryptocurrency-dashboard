@@ -1,3 +1,64 @@
+// pull from api
+d3.json(`/linechart`).then(function(data) {
+        
+    // adjust data for chart. change "date" key in object to "time".
+    for (i in data) {
+        data[i]["time"] = data[i]["date"]
+        delete data[i]["date"]
+    }
+
+    console.log(data)
+
+
+
+// coins list to populate selection box
+let coins = ["bitcoin","etherium","ripple","ada","solana"]
+
+//populate selection box with coins list
+for (i in coins) {
+ d3.select("#selCoin").append("option").attr("value", `${coins[i]}_gbp`).text(coins[i]);
+};
+
+// Use D3 to select dropdown menu
+var dropdownMenu = d3.select("#selCoin"); 
+
+// Assign the value of the dropdown menu option to a variable
+var coin = dropdownMenu.property("value");
+
+var chartElement = document.createElement('div');
+
+var chart = LightweightCharts.createChart(chartElement, {
+	width: 600,
+  height: 300,
+	layout: {
+		backgroundColor: '#000000',
+		textColor: '#d1d4dc',
+	},
+	grid: {
+		vertLines: {
+			visible: false,
+		},
+		horzLines: {
+			color: 'rgba(42, 46, 57, 0.5)',
+		},
+	},
+	rightPriceScale: {
+		borderVisible: false,
+	},
+	timeScale: {
+		borderVisible: false,
+	},
+	crosshair: {
+		horzLine: {
+			visible: false,
+		},
+	},
+});
+
+document.body.appendChild(chartElement);
+
+
+
 function createSimpleSwitcher(items, activeItem, activeItemChangedCallback) {
 	var switcherElement = document.createElement('div');
 	switcherElement.classList.add('switcher');
@@ -518,37 +579,7 @@ var seriesesData = new Map([
 
 var switcherElement = createSimpleSwitcher(intervals, intervals[0], syncToInterval);
 
-var chartElement = document.createElement('div');
 
-var chart = LightweightCharts.createChart(chartElement, {
-	width: 600,
-  height: 300,
-	layout: {
-		backgroundColor: '#000000',
-		textColor: '#d1d4dc',
-	},
-	grid: {
-		vertLines: {
-			visible: false,
-		},
-		horzLines: {
-			color: 'rgba(42, 46, 57, 0.5)',
-		},
-	},
-	rightPriceScale: {
-		borderVisible: false,
-	},
-	timeScale: {
-		borderVisible: false,
-	},
-	crosshair: {
-		horzLine: {
-			visible: false,
-		},
-	},
-});
-
-document.body.appendChild(chartElement);
 document.body.appendChild(switcherElement);
 
 var areaSeries = null;
@@ -568,3 +599,9 @@ function syncToInterval(interval) {
 }
 
 syncToInterval(intervals[0]);
+
+
+
+
+// close API pull function
+});
