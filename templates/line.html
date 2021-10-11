@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Line Chart</title>
+        <link rel="stylesheet" href="../static/css/style.css">
+    </head>
+<body>
+    <h1>Test Line Chart</h1>
+    
+    <div>
+        <h4>Select coin:</h4>
+        <select id="selCoin" onchange="selCoin(this.value)"></select>
+        <select id="selData" onchange="selData(this.value)"></select>
+    </div>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <script src="../static/js/line-chart.js"></script>
+</body>
+</html>

@@ -102,8 +102,13 @@ def data(coin):
 
 # Historical chart page
 @app.route("/historical")
-def chart():
+def histchart():
     return render_template ("historical.html")
+
+# Historical chart page
+@app.route("/line")
+def linechart():
+    return render_template ("line.html")
 
 # Start Flask app
 if __name__ == '__main__':
