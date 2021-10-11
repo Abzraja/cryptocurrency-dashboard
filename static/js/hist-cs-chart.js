@@ -80,6 +80,7 @@ function optionChanged(coin, time_delta) {
         delete data[i]["date"]
         }
 
+     
 
         // set data for chart
         candleSeries.setData(
@@ -92,8 +93,12 @@ function optionChanged(coin, time_delta) {
         
         );
 
+        //get time_delta value based on value selected in selection box.
         time_delta = dropdownMenu2.property("value");
+        console.log(time_delta)
+        
         changeTime(time_delta);
+        
         
     });
 
@@ -102,8 +107,10 @@ function optionChanged(coin, time_delta) {
 
 
 function changeTime(time_delta) {
-    // get most recent date in data object and convert to unix timestamp in seconds
+    
+    // get current date in and convert to unix timestamp in seconds
     var last_date = new Date().getTime() / 1000;
+    
     // set the time scale on chart
     chart.timeScale().setVisibleRange({
     from: last_date - time_delta,
