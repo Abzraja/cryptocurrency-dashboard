@@ -36,7 +36,7 @@ app = Flask(__name__)
 # Return static HTML file with JS code
 # Ideally would serve from independent web server, but not practical in test environment
 def home():
-    return render_template ("test.html")
+    return render_template ("index.html")
 
 @app.route("/sumtrades")
 def sumtrades():
