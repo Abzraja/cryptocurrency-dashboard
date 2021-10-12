@@ -10,6 +10,7 @@ from sqlalchemy.ext.automap import automap_base
 import sqlite3 as sql
 import pandas as pd
 from historical_api import historical_api_call
+from historical_api import shortinterval_api_call()
 # binance
 from binance.client import Client
 import config
@@ -24,9 +25,11 @@ client = Client(config.API_KEY, config.API_SECRET)
 db_path = "sqlite:///binance.sql"
 engine = create_engine(db_path)
 
-# Collect historical data
+# Collect kline data
 historical_df = historical_api_call()
 historical_df.to_sql('historical', con=engine, if_exists='replace')
+shortinterval_df = shortinterval_api_call()
+shortinterval_df.to_sql('shortinterval', con=engine, if_exists='replace')
 
 # Set app name as "app" and start Flask
 app = Flask(__name__)
@@ -80,6 +83,30 @@ def line():
 def data(coin):
     session = Session(bind=engine)
     execute_string = "select * from historical where crypto='" + coin + "'"
+    coins = engine.execute(execute_string).fetchall()
+    session.close()
+    
+    coin_dict = {}
+    for row in coins:
+        coin_dict[row[0]] = ({
+            "crypto": row[1], 
+            "date": row[2],
+            "open": row[3],
+            "high": row[4],
+            "low": row[5],
+            "close": row[6],
+            "volume": row[7],
+            "number_trades": row[8]
+            })
+    
+    # Return dictionary as a JSON file for JS processing
+    return(jsonify(coin_dict))
+
+# Collect shortintervaal data
+@app.route("/shortinterval/<coin>")
+def data(coin):
+    session = Session(bind=engine)
+    execute_string = "select * from shortinterval where crypto='" + coin + "'"
     coins = engine.execute(execute_string).fetchall()
     session.close()
     
