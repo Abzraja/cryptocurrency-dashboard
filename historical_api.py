@@ -49,7 +49,7 @@ def historical_api_call():
     for crypto in cryptos:
         for time_interval in db_dict[crypto][0]:
 
-            date_col = time_interval[0]
+            date_col = time_interval[0] / 1000
             open_col = time_interval[1]
             high_col = time_interval[2]
             low_col = time_interval[3]
@@ -115,7 +115,7 @@ def shortinterval_api_call():
     for crypto in cryptos:
         for time_interval in db_dict[crypto][0]:
 
-            date_col = time_interval[0]
+            date_col = time_interval[0] / 1000
             open_col = time_interval[1]
             high_col = time_interval[2]
             low_col = time_interval[3]

@@ -13,18 +13,7 @@ var dropdownMenu = d3.select("#selDataset");
 var coin = dropdownMenu.property("value");
 
 // List of time ranges for selection box
-let time_deltas = [{"Last 365 Days":31622400}, {"Last 30 Days":2678400}, {"Last 7 Days":691200}]
-
-//populate selection box with time ranges list
-for (i in time_deltas) {
-    d3.select("#selTime").append("option").attr("value", Object.values(time_deltas[i])).text(Object.keys(time_deltas[i]));
-   };
-
-// Use D3 to select time dropdown menu
-var dropdownMenu2 = d3.select("#selTime"); 
-
-// Assign the value of the dropdown menu option to a variable
-var time_delta = dropdownMenu2.property("value");
+let time_deltas = [{"Last 30 Minutes":1800}]
 
 
 // create chart
@@ -72,15 +61,8 @@ function optionChanged(coin, time_delta) {
      
 
     // pull from api
-    d3.json(`/shortinterval/${coin}`).then(function(data) {
-        
-        // adjust data for chart. change "date" key in object to "time".
-        for (i in data) {
-        data[i]["time"] = data[i]["date"]
-        delete data[i]["date"]
-        }
+    d3.json(`/liveinterval/${coin}`).then(function(data) {
 
-     
 
         // set data for chart
         candleSeries.setData(
@@ -93,8 +75,8 @@ function optionChanged(coin, time_delta) {
         
         );
 
-        //get time_delta value based on value selected in selection box.
-        time_delta = dropdownMenu2.property("value");
+        //31 minutes in seconds
+        time_delta = 1860;
         
         // run changeTime function
         changeTime(time_delta);
@@ -117,4 +99,3 @@ function changeTime(time_delta) {
     to: last_date,
     });
     }
-
