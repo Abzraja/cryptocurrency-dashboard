@@ -76,19 +76,19 @@ Each function returns the API data as a processed and formatted Pandas dataframe
 
 This is the primary Python file, containing the Flask application and the interaction with the SQLite database
 
-**Binance data**
+**Binance data**  
 It commences by obtaining the two datasources from binance.py, which are returned as Pandas dataframes. These dataframes are then stored in the SQLite database for later retrieval.
 
 The functions are set to collect fresh data at regular intervals which are stored in the database. The short_interval data updates at 60 second intervals, with the historical data updating every 600 seconds. This ensures that any data retrieval calls from our application uses the latest data. Limiting our application to the local database reduces the number of calls to the external API, allowing a number of users to interact with the charts on a frequent basis, and helps manage the flow of data.
 
-**Flask application**
+**Flask application**  
 The remainder of the script consists of a Flask application, serving both static webpages (with JavaScript visualisations) and the data from the SQLite database as an API.
 
 There are four Flask routes to serve HTML files; these are static files from the 'templates' folder with JavaScript functionality discussed below.
 
 Additional routes are available for each chart, to retrieve the data from the SQLite database and present them for use. In each case, the data is presented as a JSON file.
 
-*linechart*
+*linechart*  
 This route extracts and returns the following data for all coins, to be presented on a single chart:
 
 * Coin handle
@@ -99,7 +99,7 @@ This route extracts and returns the following data for all coins, to be presente
 The JSON return is structured as:  
 {id: {dictionary of data}}
 
-*historical/<coin>*
+*historical/`<coin>`*  
 The route extracts and returns the following data for the requested coin. This is used for the candlestick chart
 
 * Coin handle
@@ -114,10 +114,10 @@ The route extracts and returns the following data for the requested coin. This i
 The JSON return is structured as:  
 {id: {dictionary of data}}
 
-*shortinterval/<coin>*
+*shortinterval/`<coin>`*  
 This route extracts the same data as the historical data, but from the short_interval table in the database.
 
-*sumtrades*
+*sumtrades*  
 An additional route is available but not presently used in visualisations with this application. It returns, for each coin, the sum of the number of trades made within the time covered in the database (one year).
 
 The JSON return is structured as:  
