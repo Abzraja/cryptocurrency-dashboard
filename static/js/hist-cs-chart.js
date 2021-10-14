@@ -80,7 +80,7 @@ function optionChanged(coin, time_delta) {
         delete data[i]["date"]
         }
 
-     
+        console.log(data)
 
         // set data for chart
         candleSeries.setData(
