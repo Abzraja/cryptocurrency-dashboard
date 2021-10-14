@@ -10,13 +10,18 @@ from sqlalchemy.ext.automap import automap_base
 import sqlite3 as sql
 import pandas as pd
 from historical_api import historical_api_call
-from historical_api import shortinterval_api_call()
+from historical_api import shortinterval_api_call
 # binance
 from binance.client import Client
 import config
 # Other libraries
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
+# pip install APScheduler 
+import time
+import atexit
+from apscheduler.schedulers.background import BackgroundScheduler
+import websocket, json
 
 # Set binance connection
 client = Client(config.API_KEY, config.API_SECRET)
@@ -80,7 +85,7 @@ def line():
 
 # API call to return all data for one coin
 @app.route("/historical/<coin>")
-def data(coin):
+def historicaldata(coin):
     session = Session(bind=engine)
     execute_string = "select * from historical where crypto='" + coin + "'"
     coins = engine.execute(execute_string).fetchall()
@@ -104,7 +109,7 @@ def data(coin):
 
 # Collect shortintervaal data
 @app.route("/shortinterval/<coin>")
-def data(coin):
+def shortintervaldata(coin):
     session = Session(bind=engine)
     execute_string = "select * from shortinterval where crypto='" + coin + "'"
     coins = engine.execute(execute_string).fetchall()
@@ -125,6 +130,32 @@ def data(coin):
     
     # Return dictionary as a JSON file for JS processing
     return(jsonify(coin_dict))
+
+
+def print_date_time():
+    print(time.strftime("%A, %d. %B %Y %I:%M:%S %p"))
+
+def historical_update():
+    historical_api_call()
+    print("historical_update ran successfully")
+
+def shortinterval_update():
+    shortinterval_api_call()
+    print("shortinterval_update ran successfully")
+
+#run functions on app startup
+historical_update()
+shortinterval_update()
+
+#run functions every minute/hour
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=print_date_time, trigger="interval", seconds=60)
+scheduler.add_job(func=shortinterval_update, trigger="interval", seconds=60)
+scheduler.add_job(func=historical_update, trigger="interval", seconds=600)
+scheduler.start()
+
+# Shut down the scheduler when exiting the app
+atexit.register(lambda: scheduler.shutdown())
 
 # Start Flask app
 if __name__ == '__main__':
