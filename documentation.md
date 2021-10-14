@@ -57,10 +57,12 @@ This chart has the same functionality as the historical chart, but uses live dat
 The user can  interact with the chart by selecting which coin is displayed, and also zooming in and out of the chart.
 
 ## Code details
+The code consists of three Python scripts and three JavaScript files. The Python scripts are used for obtaining, storing and serving the data, with the JavaScript files used to retrieve the data and present them in visualisations.
 
-### Overview
-#### Python
-##### historical_api.py
+The details of each script is given below. Code excerpts are not presented.
+
+### Python
+#### historical_api.py
 This file interacts with the Binance API through the Python library python_binance.
 
 Two functions are provided, both with near identical functionality. Each function returns data from the Binance API, the differences being the time period and interval of the data collected:  
@@ -79,7 +81,7 @@ For each function the process is identical.
 
 Each function returns the API data as a processed and formatted Pandas dataframe
 
-##### app.py
+#### app.py
 
 This is the primary Python file, containing the Flask application and the interaction with the SQLite database
 
@@ -129,3 +131,29 @@ An additional route is available but not presently used in visualisations with t
 
 The JSON return is structured as:  
 {coin: sum_of_trades} 
+
+#### live_update.py
+This file obtains the same data as in historical_data, but uses a websocket to do so on a live basis, returning data whenever the source is updated.
+
+### JavaScript
+#### line-chart.js
+This script uses the LightweightCharts library to produce a line chart of data, using the D3 library to call and process a JSON API call to the local database.
+
+Additional D3 processes are used to create and react to user interactions:  
+* A dropdown for time period (365 days, 30 days, 7 days)
+* Buttons for each line source
+
+A separate user interaction exists in the HTML code to choose between volume traded or number of trades in a day.
+
+After initialising the chart space, the script calls the main chart display function to present the initial chart. This uses D3 to obtain the JSON file and processes it into an array based on the user selection between 'volume' and 'trade'.
+
+The data is then processed further to reform the data into a series for each coin. A supplementary function converts the time to a Unix timestamp and sets the visible range to the range selected by the user. Tooltips are prepared for each point on the chart, displaying the date as a string together with the appropriate datapoint.
+
+Each time either of the dropdowns are changed, the chart display function is called to display the required data.
+
+#### hist-cs-chart.js
+This script uses the LightweightCharts library to create a candestick chart, using the D3 library to call and process a JSON API call to the local database.
+
+Selection boxes are created for the list of coins and the available time options (365 days, 30 days, 7 days). 
+
+After initialising the chart space, the script calls the main chart display function to present the initial chart. This uses D3 to obtain the JSON file of data for the selected coin. This data is passed to the chart to be visualised. A supplementary function converts the time to a Unix timestamp and sets the visible range to the range selected by the user.
