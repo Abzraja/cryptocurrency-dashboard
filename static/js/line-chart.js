@@ -25,7 +25,7 @@ var chart = LightweightCharts.createChart(container, {
   rightPriceScale: {
     scaleMargins: {
       top: 0.2,
-      bottom: 0.2,
+      bottom: 0.05,
     },
     borderVisible: false,
   },
@@ -148,35 +148,30 @@ sol_show = true
 var btc_series = chart.addLineSeries({
     title: 'Bitcoin',
     color: 'rgba(242, 169, 0, 0.8)',
-    priceScaleId: 'right',
 });
 
 // ETH line
 var eth_series = chart.addLineSeries({
     title: 'Ethereum',
     color: 'rgba(113, 107, 148, 0.8)',
-    priceScaleId: 'right',
 });
 
 // XRP line
 var xrp_series = chart.addLineSeries({
     title: 'XRP',
     color: 'rgba(0, 96, 151, 0.8)',
-    priceScaleId: 'right',
 });
 
 // ADA line
 var ada_series = chart.addLineSeries({
     title: 'Cardano',
     color: 'rgba(51, 51, 51, 0.8)',
-    priceScaleId: 'right',
 });
 
 // SOL line
 var sol_series = chart.addLineSeries({
     title: 'Solana',
     color: 'rgba(0, 255, 163, 0.8)',
-    priceScaleId: 'right',
   });
 
 function changeOption() {
@@ -209,11 +204,9 @@ d3.json(`/linechart`).then(function(data) {
         } else if (dataset ==="volume") {
             for (i in data) {
                 data[i]["value"] = data[i]["volume"];
-                delete data[i]["date"];
                 delete data[i]["volume"];
             }
         }
-
 
     data_array = Object.values(data)
 
@@ -226,7 +219,6 @@ d3.json(`/linechart`).then(function(data) {
 
 // BTC Data
 btc_series.setData(
-
     Object.values(btc_data)
     //how it wants the data
 	// { time: "2018-03-28", value: 154 },
@@ -234,32 +226,24 @@ btc_series.setData(
 
 // ETH Data
 eth_series.setData(
-
     Object.values(eth_data)
-
 );
 
 // XRP Data
 xrp_series.setData(
-
     Object.values(xrp_data)
-
 );
 
 
 // ADA Data
 ada_series.setData(
-
     Object.values(ada_data)
-
 );
 
 
 // SOL Data
 sol_series.setData(
-
     Object.values(sol_data)
-
 );
 
 
@@ -296,12 +280,15 @@ sol_series.setData(
 // 		}
 // });
 
+
+// fun function changeTime
 changeTime(time_delta);
 
+// Close D3 Json function defintion
 })
 
 
-// Close D3 Json function
+// Close changeOption function definition
 }
 changeOption();
 
