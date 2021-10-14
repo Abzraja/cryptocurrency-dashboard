@@ -19,6 +19,13 @@ The file <requirements.txt> lists the Python installation requirements for the p
 
 A valid API_KEY and API_SECRET for the Binance API will be required, contained within a local config.py file.
 
+## Deployment
+The repository requires both the following python files to be running live:  
+* app.py (web server and database management)
+* live_update.py (live data)
+
+The visualisations are accessed from the root on the web server (e.g. http://127.0.0.1/)
+
 ## User interactions
 All visualisations are presented for the following five coins:
 1. Bitcoin
