@@ -131,6 +131,20 @@ def shortintervaldata(coin):
     # Return dictionary as a JSON file for JS processing
     return(jsonify(coin_dict))
 
+# Historical chart page
+@app.route("/historical")
+def histchart():
+    return render_template ("historical.html")
+
+# Line chart page
+@app.route("/line")
+def linechart():
+    return render_template ("line.html")
+
+# Live chart page
+@app.route("/livedata")
+def livechat():
+    return render_template ("livedata.html")
 
 def print_date_time():
     print(time.strftime("%A, %d. %B %Y %I:%M:%S %p"))
