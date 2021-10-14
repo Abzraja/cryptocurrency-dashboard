@@ -74,12 +74,7 @@ function optionChanged(coin, time_delta) {
     // pull from api
     d3.json(`/historical/${coin}`).then(function(data) {
         
-        // adjust data for chart. change "date" key in object to "time".
-        for (i in data) {
-        data[i]["time"] = data[i]["date"]
-        delete data[i]["date"]
-        }
-
+        
         console.log(data)
 
         // set data for chart

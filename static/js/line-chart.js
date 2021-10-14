@@ -1,3 +1,6 @@
+//coins list
+var coins = [{"btc":"Bitcoin"}, {"eth":"Ethereum"}, {"xrp":"Ripple"}, {"ada":"Cardano"}, {"sol":"Solana"}]
+
 // List of time ranges for selection box
 let time_deltas = [{"Last 365 Days":31622400}, {"Last 30 Days":2678400}, {"Last 7 Days":691200}]
 
@@ -15,8 +18,8 @@ document.body.style.position = 'relative';
 var container = document.createElement('div');
 document.body.appendChild(container);
 
-var width = 900;
-var height = 450;
+var width = 800;
+var height = 400;
 
 var chart = LightweightCharts.createChart(container, {
   rightPriceScale: {
@@ -55,18 +58,94 @@ var btn_container = document.createElement('div');
 btn_container.setAttribute("id", "buttons")
 document.body.appendChild(btn_container);
 
-// Select container and create button
-d3.select("#buttons").append("button").attr("type", "button").text("Bitcoin")
-d3.select("#buttons").append("button").attr("type", "button").text("Ethereum")
-d3.select("#buttons").append("button").attr("type", "button").text("XRP")
-d3.select("#buttons").append("button").attr("type", "button").text("Cardano")
-d3.select("#buttons").append("button").attr("type", "button").text("Solana")
+// Select container and create buttons
+for (i in coins) {
+d3.select("#buttons").append("button").attr("type", "button").attr("id", Object.keys(coins[i])).attr("value", `${Object.keys(coins[i])}`).attr("onclick", "toggleSeries(this.value)").text(Object.values(coins[i]))
+}
 
+// Use D3 to select dropdown menu
+var button = d3.select("#buttons"); 
 
+// Assign the value of the dropdown menu option to a variable
+var coin = button.property("value");
+
+// Set flag variables
+var btc_show = true;
+var eth_show = true;
+var xrp_show = true;
+var ada_show = true;
+var sol_show = true;
+
+// Series visibility.
+function toggleSeries(coin) {
+//hidden=true;
+if (coin === "btc") {
+    if (btc_show === true) {
+        btc_series.applyOptions({
+        visible: false,
+    })
+        btc_show = false
+    } else {
+            btc_series.applyOptions({
+            visible: true,
+            })
+            btc_show = true
+        }
+} else if (coin === "eth") {
+    if (eth_show === true) {
+    eth_series.applyOptions({
+    visible: false,
+    })
+    eth_show = false
+} else {
+        eth_series.applyOptions({
+        visible: true,
+        })
+        eth_show = true
+
+}
+} else if (coin === "xrp") {
+    if (xrp_show === true) {
+    xrp_series.applyOptions({
+    visible: false,
+    })
+    xrp_show = false
+} else {
+    xrp_series.applyOptions({
+        visible: true,
+        })
+        xrp_show = true
+}
+} else if (coin === "ada") {
+    if (ada_show === true) {
+    ada_series.applyOptions({
+    visible: false,
+    })
+    ada_show = false
+} else {
+    ada_series.applyOptions({
+        visible: true,
+        })
+        ada_show = true
+}
+} else if (coin === "sol") {
+    if (sol_show === true) {
+    sol_series.applyOptions({
+    visible: false,
+    })
+    sol_show = false
+} else {
+    sol_series.applyOptions({
+    visible: true,
+    })
+sol_show = true
+}
+
+}}
 
 
 // BTC line
-var series = chart.addLineSeries({
+var btc_series = chart.addLineSeries({
     title: 'Bitcoin',
     color: 'rgba(242, 169, 0, 0.8)',
     priceScaleId: 'right',
@@ -77,7 +156,7 @@ var series = chart.addLineSeries({
 });
 
 // ETH line
-var series2 = chart.addLineSeries({
+var eth_series = chart.addLineSeries({
     title: 'Ethereum',
     color: 'rgba(113, 107, 148, 0.8)',
     priceScaleId: 'right',
@@ -88,7 +167,7 @@ var series2 = chart.addLineSeries({
 });
 
 // XRP line
-var series3 = chart.addLineSeries({
+var xrp_series = chart.addLineSeries({
     title: 'XRP',
     color: 'rgba(0, 96, 151, 0.8)',
     priceScaleId: 'right',
@@ -99,7 +178,7 @@ var series3 = chart.addLineSeries({
 });
 
 // ADA line
-var series4 = chart.addLineSeries({
+var ada_series = chart.addLineSeries({
     title: 'Cardano',
     color: 'rgba(51, 51, 51, 0.8)',
     priceScaleId: 'right',
@@ -110,7 +189,7 @@ var series4 = chart.addLineSeries({
 });
 
 // SOL line
-var series5 = chart.addLineSeries({
+var sol_series = chart.addLineSeries({
     title: 'Solana',
     color: 'rgba(0, 255, 163, 0.8)',
     priceScaleId: 'right',
@@ -148,9 +227,8 @@ d3.json(`/linechart`).then(function(data) {
 
     
     
-        // adjust data for chart. change "date" key in object to "time".
+        // adjust data for chart.
         for (i in data) {
-            data[i]["time"] = data[i]["date"];
             data[i]["value"] = data[i]["volume"];
             delete data[i]["date"];
             delete data[i]["volume"];
@@ -176,7 +254,7 @@ d3.json(`/linechart`).then(function(data) {
 
 
 // BTC Data
-series.setData(
+btc_series.setData(
 
     Object.values(btc_data)
     //how it wants the data
@@ -184,14 +262,14 @@ series.setData(
 );
 
 // ETH Data
-series2.setData(
+eth_series.setData(
 
     Object.values(eth_data)
 
 );
 
 // XRP Data
-series3.setData(
+xrp_series.setData(
 
     Object.values(xrp_data)
 
@@ -199,7 +277,7 @@ series3.setData(
 
 
 // ADA Data
-series4.setData(
+ada_series.setData(
 
     Object.values(ada_data)
 
@@ -207,45 +285,45 @@ series4.setData(
 
 
 // SOL Data
-series5.setData(
+sol_series.setData(
 
     Object.values(sol_data)
 
 );
 
 
-function businessDayToString(businessDay) {
-	return businessDay.year + '-' + businessDay.month + '-' + businessDay.day;
-}
+// function businessDayToString(businessDay) {
+// 	return businessDay.year + '-' + businessDay.month + '-' + businessDay.day;
+// }
 
-var toolTipWidth = 80;
-var toolTipHeight = 80;
-var toolTipMargin = 15;
+// var toolTipWidth = 80;
+// var toolTipHeight = 80;
+// var toolTipMargin = 15;
 
-var toolTip = document.createElement('div');
-toolTip.className = 'floating-tooltip-2';
-container.appendChild(toolTip);
+// var toolTip = document.createElement('div');
+// toolTip.className = 'floating-tooltip-2';
+// container.appendChild(toolTip);
 
-// update tooltip
-chart.subscribeCrosshairMove(function(param) {
-		if (param.point === undefined || !param.time || param.point.x < 0 || param.point.x > container.clientWidth || param.point.y < 0 || param.point.y > container.clientHeight) {
-			toolTip.style.display = 'none';
-		} else {
-			const dateStr = businessDayToString(param.time);
-			toolTip.style.display = 'block';
-			var price = param.seriesPrices.get(series);
-			toolTip.innerHTML = '<div style="color: #009688">Apple Inc.</div><div style="font-size: 24px; margin: 4px 0px; color: #21384d">' + Math.round(100 * price) / 100 + '</div><div style="color: #21384d">' + dateStr + '</div>';
-			var coordinate = series.priceToCoordinate(price);
-			var shiftedCoordinate = param.point.x - 50;
-			if (coordinate === null) {
-				return;
-			}
-			shiftedCoordinate = Math.max(0, Math.min(container.clientWidth - toolTipWidth, shiftedCoordinate));
-			var coordinateY = coordinate - toolTipHeight - toolTipMargin > 0 ? coordinate - toolTipHeight - toolTipMargin : Math.max(0, Math.min(container.clientHeight - toolTipHeight - toolTipMargin, coordinate + toolTipMargin));
-			toolTip.style.left = shiftedCoordinate + 'px';
-			toolTip.style.top = coordinateY + 'px';
-		}
-});
+// // update tooltip
+// chart.subscribeCrosshairMove(function(param) {
+// 		if (param.point === undefined || !param.time || param.point.x < 0 || param.point.x > container.clientWidth || param.point.y < 0 || param.point.y > container.clientHeight) {
+// 			toolTip.style.display = 'none';
+// 		} else {
+// 			const dateStr = businessDayToString(param.time);
+// 			toolTip.style.display = 'block';
+// 			var price = param.seriesPrices.get(series);
+// 			toolTip.innerHTML = '<div style="color: #009688">Test Inc.</div><div style="font-size: 24px; margin: 4px 0px; color: #21384d">' + Math.round(100 * price) / 100 + '</div><div style="color: #21384d">' + dateStr + '</div>';
+// 			var coordinate = series.priceToCoordinate(price);
+// 			var shiftedCoordinate = param.point.x - 50;
+// 			if (coordinate === null) {
+// 				return;
+// 			}
+// 			shiftedCoordinate = Math.max(0, Math.min(container.clientWidth - toolTipWidth, shiftedCoordinate));
+// 			var coordinateY = coordinate - toolTipHeight - toolTipMargin > 0 ? coordinate - toolTipHeight - toolTipMargin : Math.max(0, Math.min(container.clientHeight - toolTipHeight - toolTipMargin, coordinate + toolTipMargin));
+// 			toolTip.style.left = shiftedCoordinate + 'px';
+// 			toolTip.style.top = coordinateY + 'px';
+// 		}
+// });
 
 changeTime(time_delta);
 

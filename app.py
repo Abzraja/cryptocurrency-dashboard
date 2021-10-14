@@ -10,7 +10,7 @@ from sqlalchemy.ext.automap import automap_base
 import sqlite3 as sql
 import pandas as pd
 from historical_api import historical_api_call
-##from historical_api import shortinterval_api_call
+from historical_api import shortinterval_api_call
 # binance
 from binance.client import Client
 import config
@@ -20,7 +20,7 @@ from dateutil.relativedelta import relativedelta
 # pip install APScheduler 
 import time
 import atexit
-##from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
 import websocket, json
 
 # Set binance connection
