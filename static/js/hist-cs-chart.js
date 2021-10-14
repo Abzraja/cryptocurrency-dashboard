@@ -13,7 +13,7 @@ var dropdownMenu = d3.select("#selDataset");
 var coin = dropdownMenu.property("value");
 
 // List of time ranges for selection box
-let time_deltas = [{"Last 365 Days":31622400}, {"Last 30 Days":2678400}, {"Last 7 Days":691200}]
+let time_deltas = [{"Last 365 Days":31622400}, {"Last 90 Days":7862400}, {"Last 30 Days":2678400}, {"Last 7 Days":691200}]
 
 //populate selection box with time ranges list
 for (i in time_deltas) {
