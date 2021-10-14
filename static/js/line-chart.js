@@ -15,8 +15,8 @@ document.body.style.position = 'relative';
 var container = document.createElement('div');
 document.body.appendChild(container);
 
-var width = 1000;
-var height = 500;
+var width = 900;
+var height = 450;
 
 var chart = LightweightCharts.createChart(container, {
   rightPriceScale: {
