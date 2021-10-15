@@ -46,7 +46,7 @@ app = Flask(__name__)
 def home():
     return render_template ("test.html")
 
-@app.route("/sumtrades")
+@app.route("/api/sumtrades")
 def sumtrades():
     session = Session(bind=engine)
     execute_string = "select crypto, sum(trade) from historical group by crypto"
@@ -55,15 +55,16 @@ def sumtrades():
     
     coin_dict = {}
     for row in coins:
-        print(row)
-        coin_dict[row[0]] = row[1]
-        print (coin_dict)
+         coin_dict[row[0]] = ({
+         "coin": row[0],
+         "sum": row[1]
+         })
     
     # Return dictionary as a JSON file for JS processing
     return(jsonify(coin_dict))    
 
 # API call to return volume and trades for all coins
-@app.route("/linechart")
+@app.route("/api/linechart")
 def line():
     session = Session(bind=engine)
     execute_string = "select * from historical"
@@ -84,7 +85,7 @@ def line():
 
 
 # API call to return all data for one coin
-@app.route("/historical/<coin>")
+@app.route("/api/historical/<coin>")
 def historicaldata(coin):
     session = Session(bind=engine)
     execute_string = "select * from historical where crypto='" + coin + "'"
@@ -108,7 +109,7 @@ def historicaldata(coin):
     return(jsonify(coin_dict))
 
 # Collect shortintervaal data
-@app.route("/shortinterval/<coin>")
+@app.route("/api/shortinterval/<coin>")
 def shortintervaldata(coin):
     session = Session(bind=engine)
     execute_string = "select * from shortinterval where crypto='" + coin + "'"
