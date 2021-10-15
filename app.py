@@ -4,8 +4,8 @@ from flask import Flask, jsonify, render_template
 # Import SQLAlchemy
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import Session
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.ext.automap import automap_base
+#from sqlalchemy.ext.declarative import declarative_base
+#from sqlalchemy.ext.automap import automap_base
 # Import data collection needs
 import sqlite3 as sql
 import pandas as pd
@@ -47,13 +47,14 @@ app = Flask(__name__)
 # Ideally would serve from independent web server, but not practical in test environment
 def home():
     return render_template ("index.html")
-
+  
 # API route
 @app.route("/api")
 # Return static HTML file with JS code
 # Ideally would serve from independent web server, but not practical in test environment
 def api():
     return render_template ("test.html")
+
 
 @app.route("/api/sumtrades")
 def sumtrades():
@@ -141,7 +142,7 @@ def shortintervaldata(coin):
     for row in coins:
         coin_dict[row[0]] = ({
             "crypto": row[1], 
-            "date": row[2],
+            "time": row[2],
             "open": row[3],
             "high": row[4],
             "low": row[5],
@@ -246,7 +247,7 @@ def trades():
 # Live chart page
 @app.route("/livedata")
 def livechart():
-    return render_template ("livedata.html")
+    return render_template ("live_chart2.html")
 
 # prints time as test
 # def print_date_time():
@@ -277,4 +278,6 @@ atexit.register(lambda: scheduler.shutdown())
 # Start Flask app
 if __name__ == '__main__':
     app.run(debug=True)
+    now = datetime.now(tz=None).timestamp()
+    print(now)
 

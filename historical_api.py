@@ -81,6 +81,9 @@ def shortinterval_api_call():
     today = today.strftime("%d %b, %Y")
     yesterday = yesterday.strftime("%d %b, %Y")
 
+    now = datetime.now(tz=None).timestamp()
+    print(now)
+
     cryptos = {
         "bitcoin_gbp" : 'btcgbp',
         "etherium_gbp" : 'ethgbp',
@@ -93,7 +96,7 @@ def shortinterval_api_call():
     for crypto in cryptos:
         container = []
         coin = (cryptos[crypto]).upper()
-        candles = client.get_historical_klines(coin, Client.KLINE_INTERVAL_1MINUTE, yesterday, today)
+        candles = client.get_historical_klines(coin, Client.KLINE_INTERVAL_1MINUTE, yesterday)
 
         for candlestick in candles:
             container.append(candlestick)
