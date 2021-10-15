@@ -3,7 +3,7 @@ d3.json(`/api/sumtrades`).then(function(data) {
 
 coin_data = Object.values(data)
 
-// sort data to use for plotting chart
+// sort data to use for plot
 coins_list = []
 values_list = []
 colors_list = []
