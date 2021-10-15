@@ -157,3 +157,5 @@ This script uses the LightweightCharts library to create a candestick chart, usi
 Selection boxes are created for the list of coins and the available time options (365 days, 30 days, 7 days). 
 
 After initialising the chart space, the script calls the main chart display function to present the initial chart. This uses D3 to obtain the JSON file of data for the selected coin. This data is passed to the chart to be visualised. A supplementary function converts the time to a Unix timestamp and sets the visible range to the range selected by the user.
+
+Each time either of the selections are changed, the chart display function is called to display the required data.
