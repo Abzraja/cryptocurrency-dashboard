@@ -141,9 +141,14 @@ def histchart():
 def linechart():
     return render_template ("line.html")
 
+# Line chart page
+@app.route("/trade")
+def trades():
+    return render_template ("sum-trades.html")
+
 # Live chart page
 @app.route("/livedata")
-def livechat():
+def livechart():
     return render_template ("livedata.html")
 
 # prints time as test
