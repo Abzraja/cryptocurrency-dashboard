@@ -1,0 +1,53 @@
+<html>
+<head><title>Crypto currencies - live data!</title>
+<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<body>
+<!--Navigation bar-->
+<div>
+    <nav class="navbar navbar-expand-lg navbar-light">
+     <a class="navbar-brand" href="index.html">Crypto-currency</a> 
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="/historical">Candlestick: one year</a>
+          <a class="nav-item nav-link" href="/line">Line chart</a>
+          <a class="nav-item nav-link" href="/current">Candlestick: live</a> 
+    </div></div>
+    </nav>
+    </div>
+
+    <!-- Main body text -->
+<div  style="margin: 15px">
+<h1 style="text-align: center;">Crypto-currency data</h1>
+<p>This project takes data from the <a href="http://www.binance.com/">Binance</a> API using the <a href="https://python-binance.readthedocs.io/en/latest/binance.html">python-binance library</a></p>
+<p>Data is presented for five chosen currencies, all in relation to GBP (£):</p>
+<ol>
+    <li>Bitcoin</li>
+    <li>Etherium</li>
+    <li>Ada</li>
+    <li>Ripple</li>
+    <li>Solana</li>
+</ol>
+<p>Four visualisations are presented:</p>
+<ol>
+    <li><a href="/line">Line chart</a>: one year's coin value data for all coins</li>
+    <li><a href="/historic">Candlestick</a>: one year's coin value data for one coin</li>
+    <li><a href="/live">Candlestick</a>: live coin value data for one coin</li>
+</ol>
+</div>
+
+<select id="selDataset"></select>
+<div id="chart"></div>
+
+<hr><p style="text-align: center; font-size: smaller;"><a href="https://github.com/Abzraja/project-3" style="text-decoration: none; color: black">UBHM-BRM-DATA-PT-06-2021-U-C Project 3 Group 3</a></p>
+
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="/static/js/chart_multi.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
