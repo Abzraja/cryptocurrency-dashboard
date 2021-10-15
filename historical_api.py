@@ -35,7 +35,7 @@ def historical_api_call():
     # empty dataframe to hold values
     historical_df = pd.DataFrame(
         {"crypto": [],
-        "date" : [],
+        "time" : [],
         "open" : [],
         "high" : [],
         "low" : [],
@@ -49,7 +49,8 @@ def historical_api_call():
     for crypto in cryptos:
         for time_interval in db_dict[crypto][0]:
 
-            date_col = time_interval[0]
+
+            date_col = time_interval[0]/1000
             open_col = time_interval[1]
             high_col = time_interval[2]
             low_col = time_interval[3]
@@ -59,7 +60,7 @@ def historical_api_call():
 
 
             new_row = [{"crypto": crypto,
-                    "date" : date_col,
+                    "time" : date_col,
                     "open" : open_col,
                     "high" : high_col,
                     "low" : low_col,
@@ -101,7 +102,7 @@ def shortinterval_api_call():
     # empty dataframe to hold values
     shortinterval_df = pd.DataFrame(
         {"crypto": [],
-        "date" : [],
+        "time" : [],
         "open" : [],
         "high" : [],
         "low" : [],
@@ -115,7 +116,8 @@ def shortinterval_api_call():
     for crypto in cryptos:
         for time_interval in db_dict[crypto][0]:
 
-            date_col = time_interval[0]
+
+            date_col = time_interval[0]/1000
             open_col = time_interval[1]
             high_col = time_interval[2]
             low_col = time_interval[3]
@@ -125,7 +127,7 @@ def shortinterval_api_call():
 
 
             new_row = [{"crypto": crypto,
-                    "date" : date_col,
+                    "time" : date_col,
                     "open" : open_col,
                     "high" : high_col,
                     "low" : low_col,

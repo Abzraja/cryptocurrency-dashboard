@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Line Chart</title>
+        <link rel="stylesheet" href="../static/css/style.css">
+    </head>
+<body>
+    <h1>Test Line Chart</h1>
+    
+    <div>
+        <h4>Select data:</h4>
+        <select id="selDataset" onchange="changeOption(this.value)">
+            <option value="volume">Volume</option>
+            <option value="trade">Number of Trades</option>
+        </select>
+        <select id="selTime" onchange="changeTime(this.value)"></select>
+    </div>
+    <div id="my_dataviz"></div>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <script src="../static/js/line-chart.js"></script>
+</body>
+</html>

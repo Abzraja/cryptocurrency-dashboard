@@ -11,15 +11,29 @@ kline_info = {
         "ripple_gbp" : 'xrpgbp',
         "solana_gbp" :'solgbp'}
 
+# create dictionary containing info for each coin
+dict_cryptoinfo = {}
+
+for crypto in kline_info:
+    dict_cryptoinfo.update({kline_info[crypto]: 
+            [{
+                "time": "",
+                "symbol": "",
+                "open": "",
+                "high": "",
+                "low": "",
+                "close": ""}]})
+#print(dict_cryptoinfo)
+
 socket = f"wss://stream.binance.com:9443/ws/"
 interval = "1m"
 api_call = ""
 
+# create api call 
 for crypto in kline_info:
     api_info = f"{kline_info[crypto]}@kline_{interval}/"
     api_call += api_info
 api_request = str(socket+api_call)
-
 api_request = api_request[:-1]
 
 def on_message(ws, message):
@@ -36,7 +50,15 @@ def on_message(ws, message):
             "close": candle['c'],
          }
     print(f"live data updated with {candle['s']}")
-    return(candlestick_dict)
+
+    # updates the dictionary for the crypto which has received new data, does not change others
+    for crypto in kline_info:
+        crypto_upper = str(kline_info[crypto]).upper().strip()
+        if crypto_upper == candlestick_dict["symbol"]:
+            dict_cryptoinfo.update({kline_info[crypto] : candlestick_dict})
+
+    print(dict_cryptoinfo)
+    return(dict_cryptoinfo)
 
 
 def on_close(ws):
