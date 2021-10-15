@@ -13,7 +13,7 @@ var dropdownMenu = d3.select("#selDataset");
 var coin = dropdownMenu.property("value");
 
 // List of time ranges for selection box
-let time_deltas = [{"Last 365 Days":31622400}, {"Last 30 Days":2678400}, {"Last 7 Days":691200}]
+let time_deltas = [{"Last 365 Days":31622400}, {"Last 90 Days":7862400}, {"Last 30 Days":2678400}, {"Last 7 Days":691200}]
 
 //populate selection box with time ranges list
 for (i in time_deltas) {
@@ -29,8 +29,8 @@ var time_delta = dropdownMenu2.property("value");
 
 // create chart
 var chart = LightweightCharts.createChart(document.body, {
-    width: 1000,
-  height: 500,
+    width: 800,
+  height: 400,
     layout: {
         // backgroundColor: '#000000',
         // textColor: 'rgba(255, 255, 255, 0.9)',
@@ -72,15 +72,7 @@ function optionChanged(coin, time_delta) {
      
 
     // pull from api
-    d3.json(`/shortinterval/${coin}`).then(function(data) {
-        
-        // adjust data for chart. change "date" key in object to "time".
-        for (i in data) {
-        data[i]["time"] = data[i]["date"]
-        delete data[i]["date"]
-        }
-
-     
+    d3.json(`/api/historical/${coin}`).then(function(data) {
 
         // set data for chart
         candleSeries.setData(

@@ -48,7 +48,7 @@ app = Flask(__name__)
 def home():
     return render_template ("test.html")
 
-@app.route("/sumtrades")
+@app.route("/api/sumtrades")
 def sumtrades():
     session = Session(bind=engine)
     execute_string = "select crypto, sum(trade) from historical group by crypto"
@@ -57,15 +57,16 @@ def sumtrades():
     
     coin_dict = {}
     for row in coins:
-        print(row)
-        coin_dict[row[0]] = row[1]
-        print (coin_dict)
+         coin_dict[row[0]] = ({
+         "coin": row[0],
+         "sum": row[1]
+         })
     
     # Return dictionary as a JSON file for JS processing
     return(jsonify(coin_dict))    
 
 # API call to return volume and trades for all coins
-@app.route("/linechart")
+@app.route("/api/linechart")
 def line():
     session = Session(bind=engine)
     execute_string = "select * from historical"
@@ -86,7 +87,7 @@ def line():
 
 
 # API call to return all data for one coin
-@app.route("/historical/<coin>")
+@app.route("/api/historical/<coin>")
 def historicaldata(coin):
     session = Session(bind=engine)
     execute_string = "select * from historical where crypto='" + coin + "'"
@@ -110,7 +111,7 @@ def historicaldata(coin):
     return(jsonify(coin_dict))
 
 # Collect shortintervaal data
-@app.route("/shortinterval/<coin>")
+@app.route("/api/shortinterval/<coin>")
 def shortintervaldata(coin):
     session = Session(bind=engine)
     execute_string = "select * from shortinterval where crypto='" + coin + "'"
@@ -121,7 +122,7 @@ def shortintervaldata(coin):
     for row in coins:
         coin_dict[row[0]] = ({
             "crypto": row[1], 
-            "time": row[2],
+            "date": row[2],
             "open": row[3],
             "high": row[4],
             "low": row[5],
@@ -218,9 +219,14 @@ def histchart():
 def linechart():
     return render_template ("line.html")
 
+# Line chart page
+@app.route("/trade")
+def trades():
+    return render_template ("sum-trades.html")
+
 # Live chart page
 @app.route("/livedata")
-def livechat():
+def livechart():
     return render_template ("livedata.html")
 
 # prints time as test
@@ -241,10 +247,9 @@ def shortinterval_update():
 
 #run functions every minute/hour
 scheduler = BackgroundScheduler()
-# scheduler.add_job(func=print_date_time, trigger="interval", seconds=60)
-scheduler.add_job(func=update_livedata, trigger="interval", seconds=10)
-#  scheduler.add_job(func=shortinterval_update, trigger="interval", seconds=60)
-#  scheduler.add_job(func=historical_update, trigger="interval", seconds=600)
+#scheduler.add_job(func=print_date_time, trigger="interval", seconds=60)
+scheduler.add_job(func=shortinterval_update, trigger="interval", seconds=60)
+scheduler.add_job(func=historical_update, trigger="interval", seconds=600)
 scheduler.start()
 
 # Shut down the scheduler when exiting the app
