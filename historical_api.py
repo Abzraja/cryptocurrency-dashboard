@@ -49,11 +49,7 @@ def historical_api_call():
     for crypto in cryptos:
         for time_interval in db_dict[crypto][0]:
 
-<<<<<<< HEAD
             date_col = time_interval[0]/1000
-=======
-            date_col = time_interval[0]
->>>>>>> 8bae605a8b2c14d21d6423d552f18abf85a95a8a
             open_col = time_interval[1]
             high_col = time_interval[2]
             low_col = time_interval[3]
@@ -63,11 +59,7 @@ def historical_api_call():
 
 
             new_row = [{"crypto": crypto,
-<<<<<<< HEAD
                     "time" : date_col,
-=======
-                    "date" : date_col,
->>>>>>> 8bae605a8b2c14d21d6423d552f18abf85a95a8a
                     "open" : open_col,
                     "high" : high_col,
                     "low" : low_col,
@@ -109,11 +101,7 @@ def shortinterval_api_call():
     # empty dataframe to hold values
     shortinterval_df = pd.DataFrame(
         {"crypto": [],
-<<<<<<< HEAD
         "time" : [],
-=======
-        "date" : [],
->>>>>>> 8bae605a8b2c14d21d6423d552f18abf85a95a8a
         "open" : [],
         "high" : [],
         "low" : [],
@@ -127,11 +115,7 @@ def shortinterval_api_call():
     for crypto in cryptos:
         for time_interval in db_dict[crypto][0]:
 
-<<<<<<< HEAD
             date_col = time_interval[0]/1000
-=======
-            date_col = time_interval[0]
->>>>>>> 8bae605a8b2c14d21d6423d552f18abf85a95a8a
             open_col = time_interval[1]
             high_col = time_interval[2]
             low_col = time_interval[3]

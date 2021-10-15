@@ -12,15 +12,15 @@ const svg = d3.select("#my_dataviz")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
 // pull from api
-d3.json(`/sumtrades`).then(function(data) {
-console.log(data)
+d3.json(`/api/sumtrades`).then(function(data) {
 
+coin_data = Object.values(data)
+console.log(coin_data)
 
 // X axis
 const x = d3.scaleBand()
   .range([ 0, width ])
-  //.domain(data.map(d => d.Country))
-  .domain(Object.keys(data))
+  .domain(coin_data.map(d => d.coin))
   .padding(0.2);
 svg.append("g")
   .attr("transform", `translate(0,${height})`)
@@ -38,10 +38,9 @@ svg.append("g")
 
 // Bars
 svg.selectAll("mybar")
-  .data(data)
+  .data(coin_data)
   .join("rect")
-    //.attr("x", d => x(d.Country))
-    .attr("x", Object.keys(data))
+    .attr("x", d => x(d.coin))
     .attr("width", x.bandwidth())
     .attr("fill", "#69b3a2")
     // no bar at the beginning thus:
@@ -52,8 +51,8 @@ svg.selectAll("mybar")
 svg.selectAll("rect")
   .transition()
   .duration(800)
-  .attr("y", d => y(d.Value))
-  .attr("height", d => height - y(d.Value))
+  .attr("y", d => y(d.sum))
+  .attr("height", d => height - y(d.sum))
   .delay((d,i) => {console.log(i); return i*100})
 
 })

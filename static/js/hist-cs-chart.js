@@ -29,8 +29,8 @@ var time_delta = dropdownMenu2.property("value");
 
 // create chart
 var chart = LightweightCharts.createChart(document.body, {
-    width: 1000,
-  height: 500,
+    width: 800,
+  height: 400,
     layout: {
         // backgroundColor: '#000000',
         // textColor: 'rgba(255, 255, 255, 0.9)',
@@ -72,10 +72,9 @@ function optionChanged(coin, time_delta) {
      
 
     // pull from api
-    d3.json(`/historical/${coin}`).then(function(data) {
+    d3.json(`/api/historical/${coin}`).then(function(data) {
         
         
-        console.log(data)
 
         // set data for chart
         candleSeries.setData(

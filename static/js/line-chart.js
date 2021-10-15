@@ -192,7 +192,7 @@ var time_delta = dropdownMenu2.property("value");
 
 
 // pull from api
-d3.json(`/linechart`).then(function(data) {
+d3.json(`/api/linechart`).then(function(data) {
 			
     
         // if dataset value is trade then give "value" the value for "trade"
