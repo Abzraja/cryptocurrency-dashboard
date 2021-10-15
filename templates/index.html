@@ -1,22 +1,47 @@
+<!DOCTYPE html>
 <html>
-<head><title>Crypto currencies - live data!</title></head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<body>
-<!-- Start Bootstrap grid-->
-<div class="container bg-white">
+<head>
+    <title>Crypto currencies - live data!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/cosmo/bootstrap.min.css" integrity="sha256-iMtue7kH6spfqTbfU9XGcwtBF8bgiOnVTErTuh7LJr8=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+</head>
 
-<script src="https://d3js.org/d3.v5.min.js"></script>
-    <script>
-        function api(coin) {
-            api_path = `/historical/${coin}`;
-            d3.json(api_path).then(function(data) {
-                graph_1(data);
-                graph_2(data);
-                graph_3(data);
-            }
-        }
-    </script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<body>
+    <!-- Navbar section -->
+    <nav class="navbar-right navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+    <div class="container-fluid pb-2">
+        <a class="navbar-brand d-flex justify-content-center p-2" href="/">
+            <i class="bi bi-currency-bitcoin" style="font-size: 3rem;"></i><h2 class="mt-3">Crypto Decryption</h2></a>
+            <button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <ul class="navbar-nav mx-auto">
+                    <a class="nav-link active" href="/"><i class="bi bi-house-door-fill"></i></a>
+                    <a class="nav-link" href="/live">Live Plot</a>
+                    <a class="nav-link" href="/historical">Historical Plot</a>
+                    <a class="nav-link" href="/line">Line Plot</a>
+                    <a class="nav-link" href="/bar">Bar Plot</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </nav>
+    <!-- End Navbar Section -->
+
+      <!-- Main Container section -->
+      <div class="container mt-5">
+        <div class="row text-center d-flex justify-content-center">
+            <div class="col"><h4>Welcome to the Dashboard</h4><p><h5>Select a chart</h5></p></div>
+        </div>
+        <div class="row text-center d-flex justify-content-center">
+          <div class="col-md-6 mt-5"><a href="/live"><img width="450px" src="/static/images/historical.png"><h4>Live Plot</h4></a><p>Candlestick plot that updates in real-time!</p></div>
+          <div class="col-md-6 mt-5"><a href="/historical"><img width="450px" src="/static/images/historical.png"><h4>Historical Plot</h4></a><p>Candlestick plot that shows last X days of data.</p></div>
+          <div class="col-md-6 mt-5"><a href="/line"><img width="450px" src="/static/images/line.png"><h4>Line Plot</h4></a><p>See traded volume or number of trades for selected time period</p></div>
+          <div class="col-md-6 mt-5"><a href="/bar"><img width="450px" src="/static/images/bar.png"><h4>Bar Plot</h4></a><p>See total number of trades for each crypto in the last 365 days.</p></div>
+        </div>
+      </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
+</html>

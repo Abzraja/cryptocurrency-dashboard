@@ -32,7 +32,13 @@ var data = trace_list;
 
 // set layout
 var layout = {
-  title:'Total Number of Trades',
+  title:'Total Number of Trades in Last 365 Days',
+  xaxis: {
+    title: "Coin"
+  },
+  yaxis: {
+    title: "Number of Trades"
+  },
   showlegend:true
 };
 
