@@ -46,7 +46,7 @@ app = Flask(__name__)
 def home():
     return render_template ("test.html")
 
-@app.route("/sumtrades")
+@app.route("/api/sumtrades")
 def sumtrades():
     session = Session(bind=engine)
     execute_string = "select crypto, sum(trade) from historical group by crypto"
@@ -55,15 +55,16 @@ def sumtrades():
     
     coin_dict = {}
     for row in coins:
-        print(row)
-        coin_dict[row[0]] = row[1]
-        print (coin_dict)
+         coin_dict[row[0]] = ({
+         "coin": row[0],
+         "sum": row[1]
+         })
     
     # Return dictionary as a JSON file for JS processing
     return(jsonify(coin_dict))    
 
 # API call to return volume and trades for all coins
-@app.route("/linechart")
+@app.route("/api/linechart")
 def line():
     session = Session(bind=engine)
     execute_string = "select * from historical"
@@ -84,7 +85,11 @@ def line():
 
 
 # API call to return all data for one coin
+<<<<<<< HEAD
 @app.route("/historical/<coin>")
+=======
+@app.route("/api/historical/<coin>")
+>>>>>>> 8bae605a8b2c14d21d6423d552f18abf85a95a8a
 def historicaldata(coin):
     session = Session(bind=engine)
     execute_string = "select * from historical where crypto='" + coin + "'"
@@ -108,7 +113,11 @@ def historicaldata(coin):
     return(jsonify(coin_dict))
 
 # Collect shortintervaal data
+<<<<<<< HEAD
 @app.route("/shortinterval/<coin>")
+=======
+@app.route("/api/shortinterval/<coin>")
+>>>>>>> 8bae605a8b2c14d21d6423d552f18abf85a95a8a
 def shortintervaldata(coin):
     session = Session(bind=engine)
     execute_string = "select * from shortinterval where crypto='" + coin + "'"
@@ -119,7 +128,11 @@ def shortintervaldata(coin):
     for row in coins:
         coin_dict[row[0]] = ({
             "crypto": row[1], 
+<<<<<<< HEAD
             "time": row[2],
+=======
+            "date": row[2],
+>>>>>>> 8bae605a8b2c14d21d6423d552f18abf85a95a8a
             "open": row[3],
             "high": row[4],
             "low": row[5],
@@ -131,6 +144,7 @@ def shortintervaldata(coin):
     # Return dictionary as a JSON file for JS processing
     return(jsonify(coin_dict))
 
+<<<<<<< HEAD
 # Historical chart page
 @app.route("/historical")
 def histchart():
@@ -154,6 +168,11 @@ def livechart():
 # prints time as test
 # def print_date_time():
 #     print(time.strftime("%A, %d. %B %Y %I:%M:%S %p"))
+=======
+
+def print_date_time():
+    print(time.strftime("%A, %d. %B %Y %I:%M:%S %p"))
+>>>>>>> 8bae605a8b2c14d21d6423d552f18abf85a95a8a
 
 def historical_update():
     historical_api_call()
@@ -169,7 +188,11 @@ shortinterval_update()
 
 #run functions every minute/hour
 scheduler = BackgroundScheduler()
+<<<<<<< HEAD
 # scheduler.add_job(func=print_date_time, trigger="interval", seconds=60)
+=======
+scheduler.add_job(func=print_date_time, trigger="interval", seconds=60)
+>>>>>>> 8bae605a8b2c14d21d6423d552f18abf85a95a8a
 scheduler.add_job(func=shortinterval_update, trigger="interval", seconds=60)
 scheduler.add_job(func=historical_update, trigger="interval", seconds=600)
 scheduler.start()
