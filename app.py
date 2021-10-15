@@ -1,131 +1,73 @@
-# Import Flask
-from os import replace
-from flask import Flask, jsonify, render_template
-# Import SQLAlchemy
-from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.orm import Session
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.ext.automap import automap_base
-# Import data collection needs
-import sqlite3 as sql
-import pandas as pd
-from historical_api import historical_api_call
-from historical_api import shortinterval_api_call()
-# binance
+from flask import Flask, render_template, request, flash, redirect, jsonify
+import config, csv, datetime
 from binance.client import Client
-import config
-# Other libraries
-from datetime import datetime, timedelta
-from dateutil.relativedelta import relativedelta
+from binance.enums import *
 
-# Set binance connection
-client = Client(config.API_KEY, config.API_SECRET)
-
-## Database
-db_path = "sqlite:///binance.sql"
-engine = create_engine(db_path)
-
-# Collect kline data
-historical_df = historical_api_call()
-historical_df.to_sql('historical', con=engine, if_exists='replace')
-shortinterval_df = shortinterval_api_call()
-shortinterval_df.to_sql('shortinterval', con=engine, if_exists='replace')
-
-# Set app name as "app" and start Flask
 app = Flask(__name__)
-
-# Base route
-@app.route("/")
-# Return static HTML file with JS code
-# Ideally would serve from independent web server, but not practical in test environment
-def home():
-    return render_template ("test.html")
-
-@app.route("/sumtrades")
-def sumtrades():
-    session = Session(bind=engine)
-    execute_string = "select crypto, sum(trade) from historical group by crypto"
-    coins = engine.execute(execute_string).fetchall()
-    session.close()
-    
-    coin_dict = {}
-    for row in coins:
-        print(row)
-        coin_dict[row[0]] = row[1]
-        print (coin_dict)
-    
-    # Return dictionary as a JSON file for JS processing
-    return(jsonify(coin_dict))    
-
-# API call to return volume and trades for all coins
-@app.route("/linechart")
-def line():
-    session = Session(bind=engine)
-    execute_string = "select * from historical"
-    coins = engine.execute(execute_string).fetchall()
-    session.close()
-    
-    coin_dict = {}
-    for row in coins:
-        coin_dict[row[0]] = ({
-            "crypto": row[1],
-            "date": row[2],
-            "volume": row[7],
-            "trade": row[8]
-            })
-    
-    # Return dictionary as a JSON file for JS processing
-    return(jsonify(coin_dict))
+client = Client(config.API_KEY, config.API_SECRET, tld='us')
 
 
-# API call to return all data for one coin
-@app.route("/historical/<coin>")
-def data(coin):
-    session = Session(bind=engine)
-    execute_string = "select * from historical where crypto='" + coin + "'"
-    coins = engine.execute(execute_string).fetchall()
-    session.close()
+@app.route('/')
+def index():
     
-    coin_dict = {}
-    for row in coins:
-        coin_dict[row[0]] = ({
-            "crypto": row[1], 
-            "date": row[2],
-            "open": row[3],
-            "high": row[4],
-            "low": row[5],
-            "close": row[6],
-            "volume": row[7],
-            "number_trades": row[8]
-            })
-    
-    # Return dictionary as a JSON file for JS processing
-    return(jsonify(coin_dict))
+    return render_template('index.html')
 
-# Collect shortintervaal data
-@app.route("/shortinterval/<coin>")
-def data(coin):
-    session = Session(bind=engine)
-    execute_string = "select * from shortinterval where crypto='" + coin + "'"
-    coins = engine.execute(execute_string).fetchall()
-    session.close()
-    
-    coin_dict = {}
-    for row in coins:
-        coin_dict[row[0]] = ({
-            "crypto": row[1], 
-            "date": row[2],
-            "open": row[3],
-            "high": row[4],
-            "low": row[5],
-            "close": row[6],
-            "volume": row[7],
-            "number_trades": row[8]
-            })
-    
-    # Return dictionary as a JSON file for JS processing
-    return(jsonify(coin_dict))
+@app.route('/history')
+def history():
+    btc_candlestick = client.get_historical_klines("BTCUSDT", Client.KLINE_INTERVAL_15MINUTE, "12 Oct, 2021", "15 Oct, 2021")
 
-# Start Flask app
+    btc_candlesticks = []
+
+    for data in btc_candlestick:
+        candlestick = { 
+            "time": data[0] / 1000, 
+            "open": data[1],
+            "high": data[2], 
+            "low": data[3], 
+            "close": data[4]
+        }
+
+        btc_candlesticks.append(candlestick)
+
+    return jsonify(btc_candlesticks)
+
+@app.route('/eth_history')
+def eth_history():
+    candlesticks = client.get_historical_klines("ETHUSDT", Client.KLINE_INTERVAL_15MINUTE, "12 Oct, 2021", "15 Oct, 2021")
+
+    processed_candlesticks = []
+
+    for data in candlesticks:
+        candlestick = { 
+            "time": data[0] / 1000, 
+            "open": data[1],
+            "high": data[2], 
+            "low": data[3], 
+            "close": data[4]
+        }
+
+        processed_candlesticks.append(candlestick)
+
+    return jsonify(processed_candlesticks)
+
+@app.route('/ada_history')
+def ada_history():
+    ada_candlesticks = client.get_historical_klines("ADAUSDT", Client.KLINE_INTERVAL_15MINUTE, "12 Oct, 2021", "15 Oct, 2021")
+
+    cardano_candlesticks = []
+
+    for data in ada_candlesticks:
+        candlestick = { 
+            "time": data[0] / 1000, 
+            "open": data[1],
+            "high": data[2], 
+            "low": data[3], 
+            "close": data[4]
+        }
+
+        cardano_candlesticks.append(candlestick)
+
+    return jsonify(cardano_candlesticks)
+
 if __name__ == '__main__':
     app.run(debug=True)
