@@ -26,11 +26,10 @@ var dropdownMenu2 = d3.select("#selTime");
 // Assign the value of the dropdown menu option to a variable
 var time_delta = dropdownMenu2.property("value");
 
-
 // create chart
 var chart = LightweightCharts.createChart(document.body, {
-    width: 800,
-  height: 400,
+    width: 900,
+  height: 450,
     layout: {
         // backgroundColor: '#000000',
         // textColor: 'rgba(255, 255, 255, 0.9)',

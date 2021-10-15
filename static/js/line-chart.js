@@ -18,8 +18,8 @@ document.body.style.position = 'relative';
 var container = document.createElement('div');
 document.body.appendChild(container);
 
-var width = 800;
-var height = 400;
+var width = 900;
+var height = 450;
 
 var chart = LightweightCharts.createChart(container, {
   rightPriceScale: {
@@ -56,13 +56,15 @@ chart.resize(width, height);
 // Button container
 var btn_container = document.createElement('div');
 btn_container.setAttribute("id", "buttons")
+btn_container.setAttribute("class", "chart-buttons")
 document.body.appendChild(btn_container);
 
 // Select container and create buttons
 for (i in coins) {
-d3.select("#buttons").append("button").attr("type", "button").attr("id", Object.keys(coins[i])).attr("value", `${Object.keys(coins[i])}`).attr("onclick", "toggleSeries(this.value)").text(Object.values(coins[i]))
+d3.select("#buttons").append("button").attr("class", "btn btn-primary p-1 m-1").attr("type", "button").attr("id", Object.keys(coins[i])).attr("value", `${Object.keys(coins[i])}`).attr("onclick", "toggleSeries(this.value)").text(Object.values(coins[i]))
 }
 
+d3.select("body").append("div").attr("class", "container mt-2 text-center").append("p").text("Click buttons to toggle series").append("p").attr("class", "mt-2").text("Larger series may need to be toggled off to view smaller series")
 // Use D3 to select dropdown menu
 var button = d3.select("#buttons"); 
 

@@ -47,20 +47,40 @@ app = Flask(__name__)
 # Ideally would serve from independent web server, but not practical in test environment
 def home():
     return render_template ("index.html")
+  
+# API route
+@app.route("/api")
+# Return static HTML file with JS code
+# Ideally would serve from independent web server, but not practical in test environment
+def api():
+    return render_template ("test.html")
+
 
 @app.route("/api/sumtrades")
 def sumtrades():
     session = Session(bind=engine)
-    execute_string = "select crypto, sum(trade) from historical group by crypto"
+    execute_string = "select crypto, sum(trade) from historical group by crypto order by sum(trade) desc"
     coins = engine.execute(execute_string).fetchall()
     session.close()
     
+    # Define colours to use
+    colours = ({
+        "ada_gbp": 'rgba(51, 51, 51, 0.8)',
+        "bitcoin_gbp": 'rgba(242, 169, 0, 0.8)',
+        "etherium_gbp": 'rgba(113, 107, 148, 0.8)',
+        "ripple_gbp": 'rgba(0, 96, 151, 0.8)',
+        "solana_gbp": 'rgba(0, 255, 163, 0.8)'
+        })
+    # Form dictionary to return
     coin_dict = {}
+    coinorder = 0
     for row in coins:
-         coin_dict[row[0]] = ({
+         coin_dict[coinorder] = ({
          "coin": row[0],
-         "sum": row[1]
+         "sum": row[1],
+         "color": colours[row[0]]
          })
+         coinorder += 1
     
     # Return dictionary as a JSON file for JS processing
     return(jsonify(coin_dict))    
@@ -220,7 +240,7 @@ def linechart():
     return render_template ("line.html")
 
 # Line chart page
-@app.route("/trade")
+@app.route("/bar")
 def trades():
     return render_template ("sum-trades.html")
 

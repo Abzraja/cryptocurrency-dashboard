@@ -24,3 +24,13 @@ body {
 	border: 1px solid rgba(0, 150, 136, 1);
 	border-radius: 2px;
 }
+
+.tv-lightweight-charts {
+    margin: auto;
+    margin-top: 50px;
+  }
+
+  .chart-buttons {
+	display: flex;
+    justify-content: center;
+  }
