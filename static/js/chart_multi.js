@@ -60,24 +60,24 @@ function optionChanged(coin) {
     fetch(`/api/shortinterval/${coin}`)
 	    .then((r) => r.json())
 	    .then((response) => {
-		    console.log(response)
 
-		    candleSeries.setData(response);
+		    candleSeries.setData(Object.values(response));
 	    })
 
     var cointag = "";
 
     if (coin === "bitcoin_gbp") {
-        cointag = "btcgbpt"
+        cointag = "btcgbp"
     } else if (coin === "etherium_gbp") {
-        cointag = "ethgbpt"
+        cointag = "ethgbp"
     } else if (coin === "ripple_gbp") {
-        cointag = "xrpgbpt"
+        cointag = "xrpgbp"
     } else if (coin === "ada_gbp") {
-        cointag = "adagbpt"
+        cointag = "adagbp"
     } else if (coin === "solana_gbp") {
-        cointag = "solgbpt"
+        cointag = "solgbp"
     };
+
 
     var coinsocket = "wss://stream.binance.com:9443/ws/" + cointag + "@kline_15m";
 
@@ -100,3 +100,4 @@ function optionChanged(coin) {
     }
 
 };
+

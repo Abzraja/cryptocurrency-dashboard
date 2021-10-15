@@ -122,7 +122,7 @@ def shortintervaldata(coin):
     for row in coins:
         coin_dict[row[0]] = ({
             "crypto": row[1], 
-            "date": row[2],
+            "time": row[2],
             "open": row[3],
             "high": row[4],
             "low": row[5],
@@ -258,4 +258,6 @@ atexit.register(lambda: scheduler.shutdown())
 # Start Flask app
 if __name__ == '__main__':
     app.run(debug=True)
+    now = datetime.now(tz=None).timestamp()
+    print(now)
 
