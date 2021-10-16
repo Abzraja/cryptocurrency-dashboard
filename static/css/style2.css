@@ -2,3 +2,5 @@
     margin: auto;
     margin-top: 50px;
   }
+
+  select, select option {text-transform:capitalize}

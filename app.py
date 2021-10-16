@@ -262,11 +262,13 @@ def livechart():
 #     print(time.strftime("%A, %d. %B %Y %I:%M:%S %p"))
 
 def historical_update():
-    historical_api_call()
+    historical_df = historical_api_call()
+    historical_df.to_sql('historical', con=engine, if_exists='replace')
     print("historical_update ran successfully")
 
 def shortinterval_update():
-    shortinterval_api_call()
+    shortinterval_df = shortinterval_api_call()
+    shortinterval_df.to_sql('shortinterval', con=engine, if_exists='replace')
     print("shortinterval_update ran successfully")
 
 #run functions on app startup
