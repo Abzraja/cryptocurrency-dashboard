@@ -1,10 +1,10 @@
-import config
+import os
 import pandas as pd
 from binance.client import Client
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
-client = Client(config.API_KEY, config.API_SECRET)
+client = Client(os.getenv("API_KEY"), os.getenv("API_SECRET"))
 
 def historical_api_call():
 

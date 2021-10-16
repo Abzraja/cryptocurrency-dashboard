@@ -1,5 +1,5 @@
 # Import Flask
-from os import replace
+import os
 from flask import Flask, jsonify, render_template, redirect
 # Import SQLAlchemy
 from sqlalchemy import create_engine, Column, Integer, String
@@ -13,7 +13,7 @@ from historical_api import historical_api_call
 from historical_api import shortinterval_api_call
 # binance
 from binance.client import Client
-import config
+#import config
 # Other libraries
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -26,7 +26,7 @@ import websocket, json
 
 
 # Set binance connection
-client = Client(config.API_KEY, config.API_SECRET)
+client = Client(os.getenv("API_KEY"), os.getenv("API_SECRET"))
 
 ## Database
 db_path = "sqlite:///binance.sql"
