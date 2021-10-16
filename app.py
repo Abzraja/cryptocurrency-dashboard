@@ -67,14 +67,14 @@ def sumtrades():
     colours = ({
         "ada_gbp": 'rgba(51, 51, 51, 0.8)',
         "bitcoin_gbp": 'rgba(242, 169, 0, 0.8)',
-        "etherium_gbp": 'rgba(113, 107, 148, 0.8)',
+        "ethereum_gbp": 'rgba(113, 107, 148, 0.8)',
         "ripple_gbp": 'rgba(0, 96, 151, 0.8)',
         "solana_gbp": 'rgba(0, 255, 163, 0.8)'
         })
     handles = ({
         "ada_gbp": "Ada",
         "bitcoin_gbp": "Bitcoin",
-        "etherium_gbp": "Etherium",
+        "ethereum_gbp": "Ethereum",
         "ripple_gbp": "Ripple",
         "solana_gbp": "Solana"
     })
@@ -170,7 +170,7 @@ def update_livedata():
 
     kline_info = {
             "bitcoin_gbp" : 'btcgbp',
-            "etherium_gbp" : 'ethgbp',
+            "ethereum_gbp" : 'ethgbp',
             "ada_gbp" : 'adagbp',
             "ripple_gbp" : 'xrpgbp',
             "solana_gbp" :'solgbp'}

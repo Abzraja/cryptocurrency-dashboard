@@ -213,7 +213,7 @@ d3.json(`/api/linechart`).then(function(data) {
     data_array = Object.values(data)
 
     btc_data = data_array.filter(coin => coin.crypto == "bitcoin_gbp")
-    eth_data = data_array.filter(coin => coin.crypto == "etherium_gbp")
+    eth_data = data_array.filter(coin => coin.crypto == "ethereum_gbp")
     xrp_data = data_array.filter(coin => coin.crypto == "ripple_gbp")
     ada_data = data_array.filter(coin => coin.crypto == "ada_gbp")
     sol_data = data_array.filter(coin => coin.crypto == "solana_gbp")

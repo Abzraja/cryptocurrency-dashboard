@@ -1,5 +1,5 @@
 // coins list to populate selection box
-let coins = ["bitcoin","etherium","ripple","ada","solana"]
+let coins = ["bitcoin","ethereum","ripple","ada","solana"]
 
 //populate selection box with coins list
 for (i in coins) {

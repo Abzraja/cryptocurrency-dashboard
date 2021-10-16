@@ -16,7 +16,7 @@ def historical_api_call():
 
     cryptos = {
         "bitcoin_gbp" : 'btcgbp',
-        "etherium_gbp" : 'ethgbp',
+        "ethereum_gbp" : 'ethgbp',
         "ada_gbp" : 'adagbp',
         "ripple_gbp" : 'xrpgbp',
         "solana_gbp" :'solgbp'}
@@ -86,7 +86,7 @@ def shortinterval_api_call():
 
     cryptos = {
         "bitcoin_gbp" : 'btcgbp',
-        "etherium_gbp" : 'ethgbp',
+        "ethereum_gbp" : 'ethgbp',
         "ada_gbp" : 'adagbp',
         "ripple_gbp" : 'xrpgbp',
         "solana_gbp" :'solgbp'}

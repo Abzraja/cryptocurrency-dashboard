@@ -4,7 +4,7 @@ let arrurl = currurl.split("/");
 let acoin = arrurl[arrurl.length - 1];
 
 // coins list to populate selection box
-let coins = ["bitcoin","etherium","ripple","ada","solana"]
+let coins = ["bitcoin","ethereum","ripple","ada","solana"]
 
 //populate selection box with coins list
 for (i in coins) {
@@ -90,7 +90,7 @@ function optionChanged(coin) {
 
     if (coin === "bitcoin_gbp") {
         cointag = "btcgbp"
-    } else if (coin === "etherium_gbp") {
+    } else if (coin === "ethereum_gbp") {
         cointag = "ethgbp"
     } else if (coin === "ripple_gbp") {
         cointag = "xrpgbp"
