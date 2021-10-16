@@ -245,7 +245,7 @@ def trades():
     return render_template ("sum-trades.html")
 
 # Live chart page
-@app.route("/livedata")
+@app.route("/live")
 def livechart():
     return render_template ("live_chart2.html")
 
