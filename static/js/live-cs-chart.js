@@ -16,8 +16,8 @@ var coin = dropdownMenu.property("value");
 let time_deltas = [{"Last 30 Minutes":1800}]
 
 var chart = LightweightCharts.createChart(document.body, {
-	width: 1000,
-  	height: 500,
+	width: 900,
+  	height: 450,
 	layout: {
 		//backgroundColor: '#000000',
 		//textColor: 'rgba(255, 255, 255, 0.9)',

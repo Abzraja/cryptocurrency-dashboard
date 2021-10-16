@@ -7,10 +7,12 @@ coin_data = Object.values(data)
 coins_list = []
 values_list = []
 colors_list = []
+names_list = []
 for (i in coin_data) {
   coins_list.push(coin_data[i]["coin"])
   values_list.push(coin_data[i]["sum"])
   colors_list.push(coin_data[i]["color"])
+  names_list.push(coin_data[i]["name"])
 }
 
 // set traces
@@ -19,7 +21,7 @@ for (i in coin_data) {
 trace_list.push({
   x: [coins_list[i]],
   y: [values_list[i]],
-  name: coins_list[i],
+  name: names_list[i],
   type: "bar",
   marker: {
     color: colors_list[i],
