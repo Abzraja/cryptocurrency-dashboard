@@ -79,7 +79,7 @@ function optionChanged(coin) {
     };
 
 
-    var coinsocket = "wss://stream.binance.com:9443/ws/" + cointag + "@kline_15m";
+    var coinsocket = "wss://stream.binance.com:9443/ws/" + cointag + "@kline_1m";
 
     var binanceSocket = new WebSocket(coinsocket);
 
