@@ -255,7 +255,7 @@ def trades():
 # Live chart page
 @app.route("/live")
 @app.route("/live/<coin>")
-def livechart():
+def livechart(coin="bitcoin_gbp"):
     return render_template ("live_chart2.html")
 
 # prints time as test
