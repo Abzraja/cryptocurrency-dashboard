@@ -1,9 +1,19 @@
+// get current coin
+let currurl = window.location.href;
+let arrurl = currurl.split("/");
+let acoin = arrurl[arrurl.length - 1];
+
 // coins list to populate selection box
 let coins = ["bitcoin","etherium","ripple","ada","solana"]
 
 //populate selection box with coins list
 for (i in coins) {
- d3.select("#selDataset").append("option").attr("value", `${coins[i]}_gbp`).text(coins[i]);
+ value = `${coins[i]}_gbp`
+ if (value === acoin) {
+   d3.select("#selDataset").append("option").attr("value", `${coins[i]}_gbp`).attr("selected", "true").text(coins[i]);
+ } else {
+   d3.select("#selDataset").append("option").attr("value", `${coins[i]}_gbp`).text(coins[i]);
+ }
 };
 
 // Use D3 to select dropdown menu
@@ -18,6 +28,13 @@ let time_deltas = [{"Last 30 Minutes":1800}]
 var chart = LightweightCharts.createChart(document.body, {
 	width: 900,
   	height: 450,
+	localization: {
+        priceFormatter: price =>
+        // add £ sign before price
+    
+            '£' + Math.round(price*100)/100
+        ,
+    },
 	layout: {
 		//backgroundColor: '#000000',
 		//textColor: 'rgba(255, 255, 255, 0.9)',
@@ -54,6 +71,11 @@ var candleSeries = chart.addCandlestickSeries({
 
 // Run chart function
 optionChanged(coin);
+
+// Function to load new page
+function newcoin(coin) {
+	window.location.assign(`/live/${coin}`)
+};
 
 // Function to update chart data when coin is changed
 function optionChanged(coin) {

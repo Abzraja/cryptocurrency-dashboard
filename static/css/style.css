@@ -1,6 +1,6 @@
 html,
 body {
-	font-family: 'Trebuchet MS', Roboto, Ubuntu, sans-serif;
+	/* font-family: 'Trebuchet MS', Roboto, Ubuntu, sans-serif; */
 	background: #f9fafb;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -33,4 +33,11 @@ body {
   .chart-buttons {
 	display: flex;
     justify-content: center;
+	margin-top: 10px;
+  }
+
+
+  .form-select {
+    width: 16%;
+    display: inline-block;
   }
