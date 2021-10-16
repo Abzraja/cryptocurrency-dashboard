@@ -1,6 +1,6 @@
 # Import Flask
 from os import replace
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, redirect
 # Import SQLAlchemy
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import Session
@@ -254,6 +254,7 @@ def trades():
 
 # Live chart page
 @app.route("/live")
+@app.route("/live/<coin>")
 def livechart():
     return render_template ("live_chart2.html")
 
