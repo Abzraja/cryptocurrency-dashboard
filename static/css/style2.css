@@ -4,3 +4,8 @@
   }
 
   select, select option {text-transform:capitalize}
+
+  .form-select {
+    width: 15%;
+    display: inline-block;
+  }
