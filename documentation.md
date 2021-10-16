@@ -96,7 +96,7 @@ There are four Flask routes to serve HTML files; these are static files from the
 
 Additional routes are available for each chart, to retrieve the data from the SQLite database and present them for use. In each case, the data is presented as a JSON file.
 
-*linechart*  
+*api/linechart*  
 This route extracts and returns the following data for all coins, to be presented on a single chart:
 
 * Coin handle
@@ -107,7 +107,7 @@ This route extracts and returns the following data for all coins, to be presente
 The JSON return is structured as:  
 {id: {dictionary of data}}
 
-*historical/`<coin>`*  
+*api/historical/`<coin>`*  
 The route extracts and returns the following data for the requested coin. This is used for the candlestick chart
 
 * Coin handle
@@ -122,14 +122,16 @@ The route extracts and returns the following data for the requested coin. This i
 The JSON return is structured as:  
 {id: {dictionary of data}}
 
-*shortinterval/`<coin>`*  
+*api/shortinterval/`<coin>`*  
 This route extracts the same data as the historical data, but from the short_interval table in the database.
 
-*sumtrades*  
+*api/sumtrades*  
 An additional route is used for visualisations in the form of bar chart with this application. It returns, for each coin, the sum of the number of trades made within the time covered in the database (one year).
 
+The data is extracted from the database in descending order by the sum of trades, and returned in this order in the JSON. In addition, to make it easier to produce the bar chart, coin names and display colours are passed as part of the JSON return. This ensures that each coin always uses the same colour regardless of the order the data is returned in.
+
 The JSON return is structured as:  
-{coin: sum_of_trades} 
+{displayorder: {coin, sum, color, name}}
 
 ### JavaScript
 #### line-chart.js
@@ -159,11 +161,13 @@ Each time either of the selections are changed, the chart display function is ca
 #### live-cs-chart.js
 This script uses the Trading View LightweightCharts library to create a candestick chart, using the fetch function to call and process a JSON API call to the local database.
 
-Selection boxes are created for the list of coins and the available time options (365 days, 30 days, 7 days). 
+A selection box is created for the list of coins. 
 
-After initialising the chart space, the script calls the main chart display function to present the initial chart. This uses fetch function to obtain the JSON file of data for the selected coin. This data is passed to the chart to be visualised. A supplementary function converts the time to a Unix timestamp and sets the visible range to the range selected by the user.
+After initialising the chart space, the script calls the main chart display function to present the initial chart. This uses a fetch function to obtain the JSON file of data for the selected coin. This data is passed to the chart to be visualised. 
 
 Then, inside JavaScript we create new Websocket in order to fetch real time data from Binance. The JSON file is parsed using JavaScript parse function and the values are placed inside a library. Using update function, the fetched real time data updates the live chart.
+
+To ensure only one Websocket is open at a time, selecting a different coin to display results in the page reloading, with the script identifying and displaying the chosen coin from the URL.
 
 #### sum-trades.js
 This script uses the Plotly library to create a bar chart, using D3 to obtain and process a JSON API call to the local database.
