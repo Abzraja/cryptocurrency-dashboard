@@ -20,9 +20,8 @@ The file <requirements.txt> lists the Python installation requirements for the p
 A valid API_KEY and API_SECRET for the Binance API will be required, contained within a local config.py file.
 
 ## Deployment
-The repository requires both the following python files to be running live:  
+The repository requires the following python file to be running live:  
 * app.py (web server and database management)
-* live_update.py (live data)
 
 The visualisations are accessed from the root on the web server (e.g. http://127.0.0.1/)
 
@@ -30,7 +29,7 @@ The visualisations are accessed from the root on the web server (e.g. http://127
 All visualisations are presented for the following five coins:
 1. Bitcoin
 2. Etherium
-3. Ada
+3. Cardano
 4. Ripple
 5. Solana
 
@@ -57,7 +56,7 @@ This chart has the same functionality as the historical chart, but uses live dat
 The user can  interact with the chart by selecting which coin is displayed, and also zooming in and out of the chart.
 
 ## Code details
-The code consists of three Python scripts and three JavaScript files. The Python scripts are used for obtaining, storing and serving the data, with the JavaScript files used to retrieve the data and present them in visualisations.
+The code consists of two Python scripts and four JavaScript files. The Python scripts are used for obtaining, storing and serving the data, with the JavaScript files used to retrieve the data from flask and the live data from binance using websocket and present them in visualisations.
 
 The details of each script is given below. Code excerpts are not presented.
 
@@ -127,17 +126,14 @@ The JSON return is structured as:
 This route extracts the same data as the historical data, but from the short_interval table in the database.
 
 *sumtrades*  
-An additional route is available but not presently used in visualisations with this application. It returns, for each coin, the sum of the number of trades made within the time covered in the database (one year).
+An additional route is used for visualisations in the form of bar chart with this application. It returns, for each coin, the sum of the number of trades made within the time covered in the database (one year).
 
 The JSON return is structured as:  
 {coin: sum_of_trades} 
 
-#### live_update.py
-This file obtains the same data as in historical_data, but uses a websocket to do so on a live basis, returning data whenever the source is updated.
-
 ### JavaScript
 #### line-chart.js
-This script uses the LightweightCharts library to produce a line chart of data, using the D3 library to call and process a JSON API call to the local database.
+This script uses the Trading View LightweightCharts library to produce a line chart of data, using the D3 library to call and process a JSON API call to the local database.
 
 Additional D3 processes are used to create and react to user interactions:  
 * A dropdown for time period (365 days, 30 days, 7 days)
@@ -152,10 +148,35 @@ The data is then processed further to reform the data into a series for each coi
 Each time either of the dropdowns are changed, the chart display function is called to display the required data.
 
 #### hist-cs-chart.js
-This script uses the LightweightCharts library to create a candestick chart, using the D3 library to call and process a JSON API call to the local database.
+This script uses the Trading View LightweightCharts library to create a candestick chart, using the D3 library to call and process a JSON API call to the local database.
 
 Selection boxes are created for the list of coins and the available time options (365 days, 30 days, 7 days). 
 
 After initialising the chart space, the script calls the main chart display function to present the initial chart. This uses D3 to obtain the JSON file of data for the selected coin. This data is passed to the chart to be visualised. A supplementary function converts the time to a Unix timestamp and sets the visible range to the range selected by the user.
 
 Each time either of the selections are changed, the chart display function is called to display the required data.
+
+#### live-cs-chart.js
+This script uses the Trading View LightweightCharts library to create a candestick chart, using the fetch function to call and process a JSON API call to the local database.
+
+Selection boxes are created for the list of coins and the available time options (365 days, 30 days, 7 days). 
+
+After initialising the chart space, the script calls the main chart display function to present the initial chart. This uses fetch function to obtain the JSON file of data for the selected coin. This data is passed to the chart to be visualised. A supplementary function converts the time to a Unix timestamp and sets the visible range to the range selected by the user.
+
+Then, inside JavaScript we create new Websocket in order to fetch real time data from Binance. The JSON file is parsed using JavaScript parse function and the values are placed inside a library. Using update function, the fetched real time data updates the live chart.
+
+#### sum-trades.js
+This script uses the Plotly library to create a bar chart, using D3 to obtain and process a JSON API call to the local database.
+
+The user can select which coins to display on the chart. The bar chart shows the total number of trades in the past year.
+
+
+
+
+
+
+
+
+
+
+
