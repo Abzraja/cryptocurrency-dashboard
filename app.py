@@ -71,6 +71,13 @@ def sumtrades():
         "ripple_gbp": 'rgba(0, 96, 151, 0.8)',
         "solana_gbp": 'rgba(0, 255, 163, 0.8)'
         })
+    handles = ({
+        "ada_gbp": "Ada",
+        "bitcoin_gbp": "Bitcoin",
+        "etherium_gbp": "Etherium",
+        "ripple_gbp": "Ripple",
+        "solana_gbp": "Solana"
+    })
     # Form dictionary to return
     coin_dict = {}
     coinorder = 0
@@ -78,7 +85,8 @@ def sumtrades():
          coin_dict[coinorder] = ({
          "coin": row[0],
          "sum": row[1],
-         "color": colours[row[0]]
+         "color": colours[row[0]],
+         "name": handles[row[0]]
          })
          coinorder += 1
     
