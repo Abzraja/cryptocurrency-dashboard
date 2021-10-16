@@ -60,3 +60,8 @@ We hope to visualise the following three points:
 **HTML**
 
 * Website Layout
+
+## <a id="project_retrospective"></a>Project Retrospective
+
+Quickly into our project we decided on using Binance as our API of choice. We found the functionality and ease of use with Websocket higher with Binance. We could request to the API with two separate queries - one to collate a year's worth of data daily, and a second to collate a day's worth of data minute by minute. These two separate intervals of data were converted into Pandas dataframes and sqlite databases.
+
