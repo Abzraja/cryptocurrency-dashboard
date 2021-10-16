@@ -9,3 +9,29 @@
     width: 15%;
     display: inline-block;
   }
+
+/* was used for rotating y label but removed it */ */
+ /* .label {
+
+  white-space: nowrap;
+  transform: rotate(-90deg);
+
+
+  /* Legacy vendor prefixes that you probably don't need... */
+
+  /* Safari */
+  /* -webkit-transform: rotate(90deg); */
+
+  /* Firefox */
+  /* -moz-transform: rotate(-90deg); */
+
+  /* IE */
+  /* -ms-transform: rotate(-90deg); */
+
+  /* Opera */
+  /* -o-transform: rotate(-90deg); */
+
+  /* Internet Explorer */
+  /* filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
+ }  */

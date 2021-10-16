@@ -18,6 +18,13 @@ let time_deltas = [{"Last 30 Minutes":1800}]
 var chart = LightweightCharts.createChart(document.body, {
 	width: 900,
   	height: 450,
+	localization: {
+        priceFormatter: price =>
+        // add £ sign before price
+    
+            '£' + Math.round(price*100)/100
+        ,
+    },
 	layout: {
 		//backgroundColor: '#000000',
 		//textColor: 'rgba(255, 255, 255, 0.9)',
