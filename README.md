@@ -66,3 +66,7 @@ We hope to visualise the following three points:
 Quickly into our project we decided on using Binance as our API of choice. We found the functionality and ease of use with Websocket higher with Binance. We could request to the API with two separate queries - one to collate a year's worth of data daily, and a second to collate a day's worth of data minute by minute. These two separate intervals of data were converted into Pandas dataframes and sqlite databases.
 
 One of the challenges we faced in this project was obtaining our live data. We were initially using Websockets inside of python. However, due to the .runforever() function, retrieving data from this program was impossible without preventing all other functions from ceasing. Our solution to this was to import our Websockets code into javascript and use javascript to add the live data onto our candlestick plot. 
+
+We opted for four visualisations, as we felt this better conveyed the 'story' and informed our users on the cryptocurrencies used. Whilst a racing bar chart was considered, we felt this required a larger range of cryptos to 'race' in order for it to be compelling and not a slower way of displaying information easily shown on a line plot. 
+
+In future itterations of this project, we would focus on a wider range of cryptocurrencies, as our limit of five cryptos did not affect workload. In addition, we would look at potential encorpating a bot to handle requests for improved user functionality. 
