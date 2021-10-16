@@ -13,9 +13,7 @@ Output is presented in a series of HTML pages, each one showing one visualisatio
 ## Installation
 The code for obtaining, storing and serving the data and web pages is in Python. Visualisations are presented using JavaScript.
 
-The file <requirements.txt> lists the Python installation requirements for the project, as shown below. Any web browser with JavaScript capability is able to render the HTML and visualisations.
-
-**List requirements**
+The file <requirements.txt> lists the Python installation requirements for the project. Any web browser with JavaScript capability is able to render the HTML and visualisations.
 
 A valid API_KEY and API_SECRET for the Binance API will be required, contained within a local config.py file.
 
