@@ -1,8 +1,9 @@
 pandas==1.2.4
-SQLAlchemy==1.4.7
-APScheduler==3.8.0
 Flask==1.1.2
 python_binance==1.0.15
+APScheduler==3.8.0
+SQLAlchemy==1.4.7
 binance==0.3
 python_dateutil==2.8.2
 websocket_client==1.2.1
+gunicorn==20.1.0
