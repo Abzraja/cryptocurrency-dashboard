@@ -15,87 +15,89 @@ var coin = dropdownMenu.property("value");
 // List of time ranges for selection box
 let time_deltas = [{"Last 30 Minutes":1800}]
 
-
-// create chart
 var chart = LightweightCharts.createChart(document.body, {
-    width: 1000,
-  height: 500,
-    layout: {
-        // backgroundColor: '#000000',
-        // textColor: 'rgba(255, 255, 255, 0.9)',
-    },
-    grid: {
-        vertLines: {
-            color: 'rgba(197, 203, 206, 0.5)',
-        },
-        horzLines: {
-            color: 'rgba(197, 203, 206, 0.5)',
-        },
-    },
-    crosshair: {
-        mode: LightweightCharts.CrosshairMode.Normal,
-    },
-    rightPriceScale: {
-        borderColor: 'rgba(197, 203, 206, 0.8)',
-    },
-    timeScale: {
-        borderColor: 'rgba(197, 203, 206, 0.8)',
-    },
+	width: 1000,
+  	height: 500,
+	layout: {
+		//backgroundColor: '#000000',
+		//textColor: 'rgba(255, 255, 255, 0.9)',
+	},
+	grid: {
+		vertLines: {
+			color: 'rgba(197, 203, 206, 0.5)',
+		},
+		horzLines: {
+			color: 'rgba(197, 203, 206, 0.5)',
+		},
+	},
+	crosshair: {
+		mode: LightweightCharts.CrosshairMode.Normal,
+	},
+	priceScale: {
+		borderColor: 'rgba(197, 203, 206, 0.8)',
+	},
+	timeScale: {
+		borderColor: 'rgba(197, 203, 206, 0.8)',
+		timeVisible: true,
+		secondsVisible: false,
+	},
 });
 
 var candleSeries = chart.addCandlestickSeries({
-//   upColor: 'rgba(255, 144, 0, 1)',
-//   downColor: '#000',
-//   borderDownColor: 'rgba(255, 144, 0, 1)',
-//   borderUpColor: 'rgba(255, 144, 0, 1)',
-//   wickDownColor: 'rgba(255, 144, 0, 1)',
-//   wickUpColor: 'rgba(255, 144, 0, 1)',
+	upColor: '#00ff00',
+	downColor: '#ff0000', 
+	borderDownColor: 'rgba(255, 144, 0, 1)',
+	borderUpColor: 'rgba(255, 144, 0, 1)',
+	wickDownColor: 'rgba(255, 144, 0, 1)',
+	wickUpColor: 'rgba(255, 144, 0, 1)',
 });
 
-
-// run function optionChanged and pass it variable coin
+// Run chart function
 optionChanged(coin);
 
-// function that is activated on page load and on selection box change
-function optionChanged(coin, time_delta) {
-     
+// Function to update chart data when coin is changed
+function optionChanged(coin) {
+    fetch(`/api/shortinterval/${coin}`)
+	    .then((r) => r.json())
+	    .then((response) => {
 
-    // pull from api
-    d3.json(`/liveinterval/${coin}`).then(function(data) {
+		    candleSeries.setData(Object.values(response));
+	    })
+
+    var cointag = "";
+
+    if (coin === "bitcoin_gbp") {
+        cointag = "btcgbp"
+    } else if (coin === "etherium_gbp") {
+        cointag = "ethgbp"
+    } else if (coin === "ripple_gbp") {
+        cointag = "xrpgbp"
+    } else if (coin === "ada_gbp") {
+        cointag = "adagbp"
+    } else if (coin === "solana_gbp") {
+        cointag = "solgbp"
+    };
 
 
-        // set data for chart
-        candleSeries.setData(
-            
-            // Our data object is a dictionary of dictionaries so this returns the values for each key.
-            Object.values(data)
+    var coinsocket = "wss://stream.binance.com:9443/ws/" + cointag + "@kline_15m";
 
-            // this is just an example of the format of data expected
-            // { time: '2018-10-19', open: 180.34, high: 180.99, low: 178.57, close: 179.85 },
-        
-        );
+    var binanceSocket = new WebSocket(coinsocket);
 
-        //31 minutes in seconds
-        time_delta = 1860;
-        
-        // run changeTime function
-        changeTime(time_delta);
-        
-        
-    });
+    binanceSocket.onmessage = function (event) {	
+	    var message = JSON.parse(event.data);
 
+	    var candlestick = message.k;
+
+	    console.log(candlestick)
+
+	    candleSeries.update({
+            time: candlestick.t / 1000,
+		    open: candlestick.o,
+		    high: candlestick.h,
+		    low: candlestick.l,
+		    close: candlestick.c
+	    })
+    }
 
 };
 
-
-function changeTime(time_delta) {
-    
-    // get current date in and convert to unix timestamp in seconds
-    var last_date = new Date().getTime() / 1000;
-    
-    // set the time scale on chart
-    chart.timeScale().setVisibleRange({
-    from: last_date - time_delta,
-    to: last_date,
-    });
-    }
