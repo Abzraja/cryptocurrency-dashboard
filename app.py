@@ -288,7 +288,7 @@ atexit.register(lambda: scheduler.shutdown())
 
 # Start Flask app
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
     now = datetime.now(tz=None).timestamp()
     print(now)
 
