@@ -166,7 +166,6 @@ def shortintervaldata(coin):
 # @app.route("/update_livedata/<coin>")
 def update_livedata():
     print("start")
-    client = Client(config.API_KEY, config.API_SECRET)
 
     kline_info = {
             "bitcoin_gbp" : 'btcgbp',
