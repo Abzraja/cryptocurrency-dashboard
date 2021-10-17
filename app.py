@@ -27,7 +27,6 @@ import websocket, json
 
 # Set binance connection
 client = Client(os.getenv("API_KEY"), os.getenv("API_SECRET"))
-print(os.getenv("API_KEY"))
 
 ## Database
 db_path = "sqlite:///binance.sql"
