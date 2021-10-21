@@ -82,7 +82,7 @@ def shortinterval_api_call():
     yesterday = yesterday.strftime("%d %b, %Y")
 
     now = datetime.now(tz=None).timestamp()
-    print(now)
+    print(f"short interval {now}")
 
     cryptos = {
         "bitcoin_gbp" : 'btcgbp',
