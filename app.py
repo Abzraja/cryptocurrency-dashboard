@@ -278,7 +278,7 @@ def shortinterval_update():
 #run functions every minute/hour
 scheduler = BackgroundScheduler()
 #scheduler.add_job(func=print_date_time, trigger="interval", seconds=60)
-scheduler.add_job(func=shortinterval_update, trigger="interval", seconds=60)
+#scheduler.add_job(func=shortinterval_update, trigger="interval", seconds=60)
 scheduler.add_job(func=historical_update, trigger="interval", seconds=600)
 scheduler.start()
 
