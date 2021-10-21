@@ -285,9 +285,10 @@ scheduler.start()
 # Shut down the scheduler when exiting the app
 atexit.register(lambda: scheduler.shutdown())
 
+
+
 # Start Flask app
 if __name__ == '__main__':
-    app.run()
-    now = datetime.now(tz=None).timestamp()
-    print(now)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
 
