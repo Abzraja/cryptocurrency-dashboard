@@ -35,8 +35,8 @@ engine = create_engine(db_path)
 # Collect kline data
 historical_df = historical_api_call()
 historical_df.to_sql('historical', con=engine, if_exists='replace')
-shortinterval_df = shortinterval_api_call()
-shortinterval_df.to_sql('shortinterval', con=engine, if_exists='replace')
+#shortinterval_df = shortinterval_api_call()
+#shortinterval_df.to_sql('shortinterval', con=engine, if_exists='replace')
 
 # Set app name as "app" and start Flask
 app = Flask(__name__)
