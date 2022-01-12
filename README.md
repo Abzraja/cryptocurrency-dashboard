@@ -1,4 +1,9 @@
-﻿# Project #3: Crypto Decryption 
+﻿# Project #3: Crypto Decryption - Cryptocurrency Dashboard
+
+<img src="static/images/preview.png" width="600">
+
+### Deployed App
+[Click Here to view deployed app](https://crypto-decryption-project3.herokuapp.com/)
  
  ## Contents
 
@@ -71,3 +76,9 @@ One of the challenges we faced in this project was obtaining our live data. We w
 We opted for four visualisations, as we felt this better conveyed the 'story' and informed our users on the cryptocurrencies used. Whilst a racing bar chart was considered, we felt this required a larger range of cryptos to 'race' in order for it to be compelling and not a slower way of displaying information easily shown on a line plot. 
 
 In future iterations of this project, we would focus on a wider range of cryptocurrencies, as our limit of five cryptos did not affect workload. In addition, we would look at potential incorporating a bot to handle requests for improved user functionality.
+
+
+## View Deployed App
+
+The App is deployed to Heroku
+[Click Here to view deployed app](https://crypto-decryption-project3.herokuapp.com/)
